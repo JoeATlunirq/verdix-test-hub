@@ -7,12 +7,24 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { Plus, X, Upload, BarChart3 } from "lucide-react";
+import { Plus, X, Upload, BarChart3, TrendingUp, Eye, Clock, Heart, MessageCircle, Share2, ThumbsUp } from "lucide-react";
 import { useState } from "react";
+
+const availableMetrics = [
+  { id: 'views', name: 'Views', icon: Eye, description: 'Total video views' },
+  { id: 'ctr', name: 'Click-through Rate', icon: TrendingUp, description: 'Percentage of impressions that resulted in clicks' },
+  { id: 'retention', name: 'Average View Duration', icon: Clock, description: 'How long viewers watch on average' },
+  { id: 'engagement', name: 'Engagement Rate', icon: Heart, description: 'Likes, comments, shares per view' },
+  { id: 'comments', name: 'Comments', icon: MessageCircle, description: 'Total number of comments' },
+  { id: 'likes', name: 'Likes', icon: ThumbsUp, description: 'Total number of likes' },
+  { id: 'shares', name: 'Shares', icon: Share2, description: 'Times video was shared' },
+  { id: 'subscribers', name: 'Subscriber Growth', icon: TrendingUp, description: 'New subscribers from video' },
+];
 
 const NewTest = () => {
   const [controlVideos, setControlVideos] = useState<string[]>([""]);
   const [variantVideos, setVariantVideos] = useState<string[]>([""]);
+  const [selectedMetrics, setSelectedMetrics] = useState<string[]>(['views', 'ctr', 'retention']);
 
   const addControlVideo = () => {
     setControlVideos([...controlVideos, ""]);
@@ -40,6 +52,32 @@ const NewTest = () => {
     const updated = [...variantVideos];
     updated[index] = value;
     setVariantVideos(updated);
+  };
+
+  const toggleMetric = (metricId: string) => {
+    if (selectedMetrics.includes(metricId)) {
+      if (selectedMetrics.length > 1) {
+        setSelectedMetrics(selectedMetrics.filter(id => id !== metricId));
+      }
+    } else {
+      setSelectedMetrics([...selectedMetrics, metricId]);
+    }
+  };
+
+  const moveMetricUp = (index: number) => {
+    if (index > 0) {
+      const newMetrics = [...selectedMetrics];
+      [newMetrics[index], newMetrics[index - 1]] = [newMetrics[index - 1], newMetrics[index]];
+      setSelectedMetrics(newMetrics);
+    }
+  };
+
+  const moveMetricDown = (index: number) => {
+    if (index < selectedMetrics.length - 1) {
+      const newMetrics = [...selectedMetrics];
+      [newMetrics[index], newMetrics[index + 1]] = [newMetrics[index + 1], newMetrics[index]];
+      setSelectedMetrics(newMetrics);
+    }
   };
 
   return (
@@ -101,6 +139,97 @@ const NewTest = () => {
                     placeholder="e.g., Testing new AI prompt that creates more engaging story hooks vs my current approach. Expecting higher retention and engagement..."
                     className="min-h-[100px] font-space"
                   />
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Metrics Selection */}
+            <Card className="border-primary/20">
+              <CardHeader>
+                <CardTitle className="text-foreground font-space flex items-center gap-2">
+                  <BarChart3 className="w-5 h-5" />
+                  Priority Metrics
+                </CardTitle>
+                <CardDescription className="font-space">
+                  Select and prioritize the metrics most important to track for this test
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="space-y-3">
+                  <h4 className="font-medium text-foreground font-space">Selected Metrics (in priority order)</h4>
+                  {selectedMetrics.map((metricId, index) => {
+                    const metric = availableMetrics.find(m => m.id === metricId);
+                    if (!metric) return null;
+                    const IconComponent = metric.icon;
+                    return (
+                      <div key={metricId} className="flex items-center justify-between p-3 bg-primary/5 border border-primary/20 rounded-lg">
+                        <div className="flex items-center gap-3">
+                          <Badge className="bg-primary/20 text-primary border-primary/30 font-space">
+                            #{index + 1}
+                          </Badge>
+                          <IconComponent className="w-4 h-4 text-primary" />
+                          <div>
+                            <p className="font-medium text-foreground font-space">{metric.name}</p>
+                            <p className="text-xs text-muted-foreground font-space">{metric.description}</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => moveMetricUp(index)}
+                            disabled={index === 0}
+                            className="h-8 w-8 p-0"
+                          >
+                            ↑
+                          </Button>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => moveMetricDown(index)}
+                            disabled={index === selectedMetrics.length - 1}
+                            className="h-8 w-8 p-0"
+                          >
+                            ↓
+                          </Button>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => toggleMetric(metricId)}
+                            disabled={selectedMetrics.length === 1}
+                            className="h-8 w-8 p-0 border-destructive/20 text-destructive hover:bg-destructive/10"
+                          >
+                            <X className="w-4 h-4" />
+                          </Button>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                <div className="space-y-3">
+                  <h4 className="font-medium text-foreground font-space">Available Metrics</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                    {availableMetrics
+                      .filter(metric => !selectedMetrics.includes(metric.id))
+                      .map((metric) => {
+                        const IconComponent = metric.icon;
+                        return (
+                          <Button
+                            key={metric.id}
+                            variant="outline"
+                            onClick={() => toggleMetric(metric.id)}
+                            className="justify-start h-auto p-3 border-border hover:bg-muted/50"
+                          >
+                            <IconComponent className="w-4 h-4 mr-2" />
+                            <div className="text-left">
+                              <p className="font-medium font-space">{metric.name}</p>
+                              <p className="text-xs text-muted-foreground font-space">{metric.description}</p>
+                            </div>
+                          </Button>
+                        );
+                      })}
+                  </div>
                 </div>
               </CardContent>
             </Card>
@@ -226,34 +355,30 @@ const NewTest = () => {
                     {controlVideos.filter(v => v.trim()).length + variantVideos.filter(v => v.trim()).length}
                   </Badge>
                 </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground font-space">Priority Metrics:</span>
+                  <Badge className="bg-primary/10 text-primary border-primary/20 font-space">
+                    {selectedMetrics.length}
+                  </Badge>
+                </div>
               </CardContent>
             </Card>
 
             <Card className="border-primary/20">
               <CardHeader>
-                <CardTitle className="text-foreground font-space">Metrics Tracked</CardTitle>
+                <CardTitle className="text-foreground font-space">Selected Metrics</CardTitle>
               </CardHeader>
               <CardContent className="space-y-2 text-sm">
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground font-space">Views</span>
-                  <span className="font-medium font-space">Primary</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground font-space">Click-through Rate</span>
-                  <span className="font-medium font-space">Primary</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground font-space">Average View Duration</span>
-                  <span className="font-medium font-space">Primary</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground font-space">Engagement Rate</span>
-                  <span className="font-medium font-space">Secondary</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground font-space">Comments/Likes</span>
-                  <span className="font-medium font-space">Secondary</span>
-                </div>
+                {selectedMetrics.map((metricId, index) => {
+                  const metric = availableMetrics.find(m => m.id === metricId);
+                  if (!metric) return null;
+                  return (
+                    <div key={metricId} className="flex justify-between">
+                      <span className="text-muted-foreground font-space">#{index + 1} {metric.name}</span>
+                      <span className="font-medium font-space">Priority</span>
+                    </div>
+                  );
+                })}
               </CardContent>
             </Card>
 
@@ -271,8 +396,8 @@ const NewTest = () => {
                   <p className="text-muted-foreground font-space">Ensure videos are comparable in topic and length</p>
                 </div>
                 <div>
-                  <h4 className="font-medium text-foreground mb-1 font-space">Test Duration</h4>
-                  <p className="text-muted-foreground font-space">Allow 7+ days for meaningful data collection</p>
+                  <h4 className="font-medium text-foreground mb-1 font-space">Metric Priority</h4>
+                  <p className="text-muted-foreground font-space">Choose 3-5 key metrics that align with your goals</p>
                 </div>
               </CardContent>
             </Card>
