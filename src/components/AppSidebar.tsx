@@ -12,42 +12,56 @@ import {
   SidebarMenuItem,
   SidebarHeader,
 } from "@/components/ui/sidebar";
+import {
+  BarChart3,
+  FlaskConical,
+  FolderOpen,
+  TrendingUp,
+  Calendar,
+  Brain,
+  Plus,
+  Video,
+  Users,
+  Settings,
+  Bell,
+  Puzzle
+} from "lucide-react";
 
 const navigationItems = [
   {
     title: "Dashboard",
     url: "/dashboard",
-    icon: "📊",
+    icon: BarChart3,
   },
   {
     title: "Tests",
     url: "/tests",
-    icon: "🧪",
+    icon: FlaskConical,
     children: [
-      { title: "All Tests", url: "/tests/all", icon: "📂" },
-      { title: "Results", url: "/tests/results", icon: "📈" },
-      { title: "Schedule", url: "/tests/schedule", icon: "📅" },
-      { title: "Insights", url: "/tests/insights", icon: "🧠" },
-      { title: "New Test", url: "/tests/new", icon: "➕" },
+      { title: "All Tests", url: "/tests/all", icon: FolderOpen },
+      { title: "Results", url: "/tests/results", icon: TrendingUp },
+      { title: "Schedule", url: "/tests/schedule", icon: Calendar },
+      { title: "Insights", url: "/tests/insights", icon: Brain },
+      { title: "New Test", url: "/tests/new", icon: Plus },
     ],
   },
   {
     title: "Connected Channels",
     url: "/channels",
-    icon: "🎥",
+    icon: Video,
   },
   {
     title: "Team Access",
     url: "/teams",
-    icon: "👥",
+    icon: Users,
   },
   {
     title: "Settings",
     url: "/settings",
-    icon: "⚙️",
+    icon: Settings,
     children: [
-      { title: "Notifications", url: "/settings/notifications", icon: "🔔" },
-      { title: "Preferences", url: "/settings/preferences", icon: "🧩" },
+      { title: "Notifications", url: "/settings/notifications", icon: Bell },
+      { title: "Preferences", url: "/settings/preferences", icon: Puzzle },
     ],
   },
 ];
@@ -81,7 +95,7 @@ export function AppSidebar() {
                       )}
                     >
                       <Link to={item.url} className="flex items-center gap-3">
-                        <span className="text-base">{item.icon}</span>
+                        <item.icon className="w-4 h-4" />
                         <span>{item.title}</span>
                       </Link>
                     </SidebarMenuButton>
@@ -99,7 +113,7 @@ export function AppSidebar() {
                             )}
                           >
                             <Link to={child.url} className="flex items-center gap-3">
-                              <span className="text-sm">{child.icon}</span>
+                              <child.icon className="w-3 h-3" />
                               <span className="text-sm">{child.title}</span>
                             </Link>
                           </SidebarMenuButton>

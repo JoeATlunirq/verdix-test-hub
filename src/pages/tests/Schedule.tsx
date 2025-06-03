@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Calendar } from "@/components/ui/calendar";
 import { useState } from "react";
+import { CalendarDays, Video, Edit } from "lucide-react";
 
 const Schedule = () => {
   const [date, setDate] = useState<Date | undefined>(new Date());
@@ -83,8 +84,14 @@ const Schedule = () => {
                     <div className="flex-1">
                       <h3 className="font-medium text-slate-900 mb-2">{test.name}</h3>
                       <div className="flex items-center gap-4 text-sm text-slate-600">
-                        <span>📅 {test.startDate} - {test.endDate}</span>
-                        <span>🎥 {test.channel}</span>
+                        <span className="flex items-center gap-1">
+                          <CalendarDays className="w-3 h-3" />
+                          {test.startDate} - {test.endDate}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Video className="w-3 h-3" />
+                          {test.channel}
+                        </span>
                         <Badge 
                           variant="outline"
                           className="bg-orange-50 text-orange-700 border-orange-200"
@@ -98,6 +105,7 @@ const Schedule = () => {
                         {test.status}
                       </Badge>
                       <Button variant="outline" size="sm" className="border-green-200 text-green-700 hover:bg-green-50">
+                        <Edit className="w-3 h-3 mr-1" />
                         Edit
                       </Button>
                     </div>

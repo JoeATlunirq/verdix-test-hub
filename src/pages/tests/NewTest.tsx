@@ -8,7 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, Lightbulb, BarChart3 } from "lucide-react";
 import { useState } from "react";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
@@ -187,7 +187,10 @@ const NewTest = () => {
           <div className="space-y-6">
             <Card className="border-green-100">
               <CardHeader>
-                <CardTitle className="text-slate-900">💡 Testing Tips</CardTitle>
+                <CardTitle className="text-slate-900 flex items-center gap-2">
+                  <Lightbulb className="w-4 h-4" />
+                  Testing Tips
+                </CardTitle>
               </CardHeader>
               <CardContent className="space-y-3 text-sm">
                 <div>
@@ -207,7 +210,10 @@ const NewTest = () => {
 
             <Card className="border-green-100">
               <CardHeader>
-                <CardTitle className="text-slate-900">📊 Success Metrics</CardTitle>
+                <CardTitle className="text-slate-900 flex items-center gap-2">
+                  <BarChart3 className="w-4 h-4" />
+                  Success Metrics
+                </CardTitle>
               </CardHeader>
               <CardContent className="space-y-2 text-sm">
                 <div className="flex justify-between">
