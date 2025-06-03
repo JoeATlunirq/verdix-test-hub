@@ -139,7 +139,11 @@ const Auth = () => {
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <div className="w-16 h-16 verdix-gradient rounded-xl mx-auto mb-4 flex items-center justify-center">
-            <span className="text-2xl font-bold text-white font-orbitron">V</span>
+            <img 
+              src="/lovable-uploads/adca2f61-27ff-4ff5-bfa9-934915da9ddc.png" 
+              alt="Verdix Logo" 
+              className="w-full h-full object-cover rounded-xl"
+            />
           </div>
           <h1 className="text-3xl font-bold verdix-text-gradient font-space mb-2">VERDIX</h1>
           <p className="text-muted-foreground font-space">YouTube Content Testing Platform</p>
