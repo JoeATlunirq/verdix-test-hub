@@ -64,39 +64,6 @@ const Teams = () => {
           </Button>
         </div>
 
-        {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <Card className="border-primary/20">
-            <CardHeader className="pb-2">
-              <CardDescription className="text-muted-foreground">Total Members</CardDescription>
-              <CardTitle className="text-3xl font-bold text-foreground">3</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-primary">1 Admin, 1 Editor, 1 Viewer</p>
-            </CardContent>
-          </Card>
-
-          <Card className="border-primary/20">
-            <CardHeader className="pb-2">
-              <CardDescription className="text-muted-foreground">Active This Week</CardDescription>
-              <CardTitle className="text-3xl font-bold text-foreground">2</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground">67% activity rate</p>
-            </CardContent>
-          </Card>
-
-          <Card className="border-primary/20">
-            <CardHeader className="pb-2">
-              <CardDescription className="text-muted-foreground">Pending Invites</CardDescription>
-              <CardTitle className="text-3xl font-bold text-foreground">0</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground">All invites accepted</p>
-            </CardContent>
-          </Card>
-        </div>
-
         {/* Team Members */}
         <Card className="border-primary/20">
           <CardHeader>
