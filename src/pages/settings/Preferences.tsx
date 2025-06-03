@@ -12,20 +12,20 @@ const Preferences = () => {
       <div className="space-y-6">
         {/* Page Header */}
         <div>
-          <h1 className="text-3xl font-bold text-slate-900">Preferences</h1>
-          <p className="text-slate-600 mt-1">Customize your VERDIX experience and default settings</p>
+          <h1 className="text-3xl font-bold text-foreground">Preferences</h1>
+          <p className="text-muted-foreground mt-1">Customize your VERDIX experience and default settings</p>
         </div>
 
         {/* Test Defaults */}
-        <Card className="border-green-100">
+        <Card className="border-primary/20">
           <CardHeader>
-            <CardTitle className="text-slate-900">Test Defaults</CardTitle>
+            <CardTitle className="text-foreground">Test Defaults</CardTitle>
             <CardDescription>Set default values for new A/B tests</CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
-                <Label className="text-slate-900 font-medium">Default Test Duration</Label>
+                <Label className="text-foreground font-medium">Default Test Duration</Label>
                 <Select defaultValue="7">
                   <SelectTrigger>
                     <SelectValue />
@@ -40,7 +40,7 @@ const Preferences = () => {
               </div>
 
               <div className="space-y-2">
-                <Label className="text-slate-900 font-medium">Confidence Level</Label>
+                <Label className="text-foreground font-medium">Confidence Level</Label>
                 <Select defaultValue="95">
                   <SelectTrigger>
                     <SelectValue />
@@ -56,16 +56,16 @@ const Preferences = () => {
 
             <div className="flex items-center justify-between">
               <div className="space-y-1">
-                <Label className="text-slate-900 font-medium">Auto-stop on Winner</Label>
-                <p className="text-sm text-slate-600">Automatically end tests when statistical significance is reached</p>
+                <Label className="text-foreground font-medium">Auto-stop on Winner</Label>
+                <p className="text-sm text-muted-foreground">Automatically end tests when statistical significance is reached</p>
               </div>
               <Switch defaultChecked />
             </div>
 
             <div className="flex items-center justify-between">
               <div className="space-y-1">
-                <Label className="text-slate-900 font-medium">Email Results Summary</Label>
-                <p className="text-sm text-slate-600">Send detailed results when tests complete</p>
+                <Label className="text-foreground font-medium">Email Results Summary</Label>
+                <p className="text-sm text-muted-foreground">Send detailed results when tests complete</p>
               </div>
               <Switch defaultChecked />
             </div>
@@ -73,15 +73,15 @@ const Preferences = () => {
         </Card>
 
         {/* Display Settings */}
-        <Card className="border-green-100">
+        <Card className="border-primary/20">
           <CardHeader>
-            <CardTitle className="text-slate-900">Display Settings</CardTitle>
+            <CardTitle className="text-foreground">Display Settings</CardTitle>
             <CardDescription>Customize how data is presented in your dashboard</CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
-                <Label className="text-slate-900 font-medium">Date Format</Label>
+                <Label className="text-foreground font-medium">Date Format</Label>
                 <Select defaultValue="mdy">
                   <SelectTrigger>
                     <SelectValue />
@@ -95,7 +95,7 @@ const Preferences = () => {
               </div>
 
               <div className="space-y-2">
-                <Label className="text-slate-900 font-medium">Number Format</Label>
+                <Label className="text-foreground font-medium">Number Format</Label>
                 <Select defaultValue="us">
                   <SelectTrigger>
                     <SelectValue />
@@ -111,16 +111,16 @@ const Preferences = () => {
 
             <div className="flex items-center justify-between">
               <div className="space-y-1">
-                <Label className="text-slate-900 font-medium">Compact Dashboard</Label>
-                <p className="text-sm text-slate-600">Show more information in less space</p>
+                <Label className="text-foreground font-medium">Compact Dashboard</Label>
+                <p className="text-sm text-muted-foreground">Show more information in less space</p>
               </div>
               <Switch />
             </div>
 
             <div className="flex items-center justify-between">
               <div className="space-y-1">
-                <Label className="text-slate-900 font-medium">Show Percentage Changes</Label>
-                <p className="text-sm text-slate-600">Display percentage improvements alongside absolute values</p>
+                <Label className="text-foreground font-medium">Show Percentage Changes</Label>
+                <p className="text-sm text-muted-foreground">Display percentage improvements alongside absolute values</p>
               </div>
               <Switch defaultChecked />
             </div>
@@ -128,32 +128,32 @@ const Preferences = () => {
         </Card>
 
         {/* Analytics & Privacy */}
-        <Card className="border-green-100">
+        <Card className="border-primary/20">
           <CardHeader>
-            <CardTitle className="text-slate-900">Analytics & Privacy</CardTitle>
+            <CardTitle className="text-foreground">Analytics & Privacy</CardTitle>
             <CardDescription>Control data collection and sharing preferences</CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="flex items-center justify-between">
               <div className="space-y-1">
-                <Label className="text-slate-900 font-medium">Usage Analytics</Label>
-                <p className="text-sm text-slate-600">Help improve VERDIX by sharing anonymous usage data</p>
+                <Label className="text-foreground font-medium">Usage Analytics</Label>
+                <p className="text-sm text-muted-foreground">Help improve VERDIX by sharing anonymous usage data</p>
               </div>
               <Switch defaultChecked />
             </div>
 
             <div className="flex items-center justify-between">
               <div className="space-y-1">
-                <Label className="text-slate-900 font-medium">Performance Benchmarks</Label>
-                <p className="text-sm text-slate-600">Compare your results with anonymized industry averages</p>
+                <Label className="text-foreground font-medium">Performance Benchmarks</Label>
+                <p className="text-sm text-muted-foreground">Compare your results with anonymized industry averages</p>
               </div>
               <Switch defaultChecked />
             </div>
 
             <div className="flex items-center justify-between">
               <div className="space-y-1">
-                <Label className="text-slate-900 font-medium">Feature Updates</Label>
-                <p className="text-sm text-slate-600">Receive early access to new features and beta programs</p>
+                <Label className="text-foreground font-medium">Feature Updates</Label>
+                <p className="text-sm text-muted-foreground">Receive early access to new features and beta programs</p>
               </div>
               <Switch />
             </div>
@@ -161,35 +161,35 @@ const Preferences = () => {
         </Card>
 
         {/* API Access */}
-        <Card className="border-green-100">
+        <Card className="border-primary/20">
           <CardHeader>
-            <CardTitle className="text-slate-900">API Access</CardTitle>
+            <CardTitle className="text-foreground">API Access</CardTitle>
             <CardDescription>Manage API keys and webhook integrations</CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
-            <div className="flex items-center justify-between p-4 bg-slate-50 rounded-lg">
+            <div className="flex items-center justify-between p-4 bg-muted/50 rounded-lg">
               <div>
-                <h4 className="font-medium text-slate-900">API Key</h4>
-                <p className="text-sm text-slate-600">sk-vx_*****************************abc123</p>
+                <h4 className="font-medium text-foreground">API Key</h4>
+                <p className="text-sm text-muted-foreground">sk-vx_*****************************abc123</p>
               </div>
               <div className="flex gap-2">
-                <Button variant="outline" size="sm" className="border-green-200 text-green-700 hover:bg-green-50">
+                <Button variant="outline" size="sm" className="border-primary/20 text-primary hover:bg-primary/10">
                   Copy
                 </Button>
-                <Button variant="outline" size="sm" className="border-red-200 text-red-700 hover:bg-red-50">
+                <Button variant="outline" size="sm" className="border-destructive/20 text-destructive hover:bg-destructive/10">
                   Regenerate
                 </Button>
               </div>
             </div>
 
-            <div className="p-4 bg-blue-50 rounded-lg">
-              <h4 className="font-medium text-blue-900 mb-2">Webhook URL</h4>
-              <p className="text-sm text-blue-800 mb-3">Receive real-time test updates at your endpoint</p>
+            <div className="p-4 bg-primary/10 rounded-lg border border-primary/20">
+              <h4 className="font-medium text-foreground mb-2">Webhook URL</h4>
+              <p className="text-sm text-muted-foreground mb-3">Receive real-time test updates at your endpoint</p>
               <div className="flex gap-2">
                 <input 
                   type="url" 
                   placeholder="https://your-app.com/webhooks/verdix"
-                  className="flex-1 border border-blue-200 rounded px-3 py-2 text-sm"
+                  className="flex-1 border border-border bg-background text-foreground rounded px-3 py-2 text-sm"
                 />
                 <Button size="sm" className="verdix-gradient text-white hover:opacity-90">
                   Save
