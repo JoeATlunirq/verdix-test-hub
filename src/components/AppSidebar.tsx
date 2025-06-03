@@ -6,7 +6,6 @@ import {
   SidebarContent,
   SidebarGroup,
   SidebarGroupContent,
-  SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
@@ -24,7 +23,7 @@ import {
   Users,
   Settings,
   Bell,
-  Puzzle
+  Sliders
 } from "lucide-react";
 
 const navigationItems = [
@@ -61,7 +60,7 @@ const navigationItems = [
     icon: Settings,
     children: [
       { title: "Notifications", url: "/settings/notifications", icon: Bell },
-      { title: "Preferences", url: "/settings/preferences", icon: Puzzle },
+      { title: "Preferences", url: "/settings/preferences", icon: Sliders },
     ],
   },
 ];
@@ -69,15 +68,32 @@ const navigationItems = [
 export function AppSidebar() {
   const location = useLocation();
 
+  const isParentActive = (item: any) => {
+    if (item.children) {
+      return item.children.some((child: any) => location.pathname === child.url);
+    }
+    return false;
+  };
+
+  const shouldShowChildren = (item: any) => {
+    return location.pathname.startsWith(item.url) || isParentActive(item);
+  };
+
   return (
-    <Sidebar className="bg-slate-100 border-r border-slate-200">
-      <SidebarHeader className="p-6 border-b border-slate-200">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 verdix-gradient rounded-lg flex items-center justify-center">
-            <span className="text-white font-bold text-sm">V</span>
+    <Sidebar className="bg-white border-r border-gray-100">
+      <SidebarHeader className="p-6 border-b border-gray-100">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 verdix-gradient rounded-xl flex items-center justify-center shadow-lg">
+            <img 
+              src="/lovable-uploads/adca2f61-27ff-4ff5-bfa9-934915da9ddc.png" 
+              alt="Verdix Logo" 
+              className="w-6 h-6 object-contain"
+            />
           </div>
-          <span className="text-xl font-bold text-slate-800">VERDIX</span>
-          <span className="text-xs bg-slate-200 text-slate-600 px-2 py-1 rounded font-medium">PRO</span>
+          <div className="flex flex-col">
+            <span className="text-2xl font-bold verdix-text-gradient tracking-wider">VERDIX</span>
+            <span className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full font-medium tracking-wide">PRO</span>
+          </div>
         </div>
       </SidebarHeader>
       <SidebarContent className="p-4">
@@ -90,31 +106,31 @@ export function AppSidebar() {
                     <SidebarMenuButton 
                       asChild
                       className={cn(
-                        "w-full justify-start text-slate-700 hover:bg-green-50 hover:text-green-700",
-                        location.pathname === item.url && "bg-green-100 text-green-800 font-medium"
+                        "w-full justify-start text-gray-700 hover:bg-green-50 hover:text-green-700 font-medium",
+                        (location.pathname === item.url || isParentActive(item)) && "verdix-gradient text-white shadow-md"
                       )}
                     >
                       <Link to={item.url} className="flex items-center gap-3">
-                        <item.icon className="w-4 h-4" />
-                        <span>{item.title}</span>
+                        <item.icon className="w-5 h-5" />
+                        <span className="font-medium">{item.title}</span>
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
-                  {item.children && (
-                    <div className="ml-6 mt-1 space-y-1">
+                  {item.children && shouldShowChildren(item) && (
+                    <div className="ml-6 mt-2 space-y-1 border-l-2 border-green-100 pl-4">
                       {item.children.map((child) => (
                         <SidebarMenuItem key={child.title}>
                           <SidebarMenuButton 
                             asChild
                             size="sm"
                             className={cn(
-                              "w-full justify-start text-slate-600 hover:bg-green-50 hover:text-green-600",
-                              location.pathname === child.url && "bg-green-50 text-green-700 font-medium"
+                              "w-full justify-start text-gray-600 hover:bg-green-50 hover:text-green-600 font-medium",
+                              location.pathname === child.url && "bg-green-100 text-green-700 font-semibold"
                             )}
                           >
                             <Link to={child.url} className="flex items-center gap-3">
-                              <child.icon className="w-3 h-3" />
-                              <span className="text-sm">{child.title}</span>
+                              <child.icon className="w-4 h-4" />
+                              <span className="text-sm font-medium">{child.title}</span>
                             </Link>
                           </SidebarMenuButton>
                         </SidebarMenuItem>

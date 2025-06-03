@@ -20,7 +20,7 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-				sans: ['Inter', 'sans-serif'],
+				sans: ['Orbitron', 'sans-serif'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',
@@ -65,6 +65,13 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				verdix: {
+					green: 'hsl(var(--verdix-green))',
+					'green-light': 'hsl(var(--verdix-green-light))',
+					'green-dark': 'hsl(var(--verdix-green-dark))',
+					dark: 'hsl(var(--verdix-dark))',
+					light: 'hsl(var(--verdix-light))',
 				}
 			},
 			borderRadius: {
