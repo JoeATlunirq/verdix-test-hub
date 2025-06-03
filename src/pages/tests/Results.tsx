@@ -1,4 +1,3 @@
-
 import { DashboardLayout } from "@/components/DashboardLayout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -6,9 +5,11 @@ import { Button } from "@/components/ui/button";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { TrendingUp, TrendingDown, Eye, MousePointer } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Results = () => {
   const [selectedTest, setSelectedTest] = useState<number | null>(null);
+  const navigate = useNavigate();
 
   const completedTests = [
     {
@@ -373,7 +374,7 @@ const Results = () => {
             <Card 
               key={test.id} 
               className="border-primary/20 hover:border-primary/40 transition-colors cursor-pointer"
-              onClick={() => setSelectedTest(test.id)}
+              onClick={() => navigate(`/tests/${test.id}`)}
             >
               <CardHeader>
                 <div className="flex items-start justify-between">

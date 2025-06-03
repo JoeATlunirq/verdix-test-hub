@@ -13,6 +13,7 @@ import Results from "./pages/tests/Results";
 import Schedule from "./pages/tests/Schedule";
 import Insights from "./pages/tests/Insights";
 import NewTest from "./pages/tests/NewTest";
+import TestDetails from "./pages/tests/TestDetails";
 import Channels from "./pages/Channels";
 import Teams from "./pages/Teams";
 import Settings from "./pages/Settings";
