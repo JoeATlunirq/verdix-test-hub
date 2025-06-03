@@ -17,39 +17,39 @@ const Tests = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto">
           <Link to="/tests/active">
-            <Card className="border-border hover:border-primary/50 hover:shadow-lg transition-all cursor-pointer group">
-              <CardHeader className="text-center">
-                <div className="w-12 h-12 verdix-gradient rounded-xl mx-auto mb-3 flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <FlaskConical className="w-6 h-6 text-white" />
+            <Card className="border-border cursor-pointer">
+              <CardHeader className="text-center pb-4">
+                <div className="w-10 h-10 verdix-gradient rounded-lg mx-auto mb-2 flex items-center justify-center">
+                  <FlaskConical className="w-5 h-5 text-white" />
                 </div>
-                <CardTitle className="text-foreground font-space">Active Tests</CardTitle>
-                <CardDescription className="font-space">Monitor ongoing content comparisons</CardDescription>
+                <CardTitle className="text-foreground font-space text-lg">Active Tests</CardTitle>
+                <CardDescription className="font-space text-sm">Monitor ongoing content comparisons</CardDescription>
               </CardHeader>
             </Card>
           </Link>
 
           <Link to="/tests/results">
-            <Card className="border-border hover:border-primary/50 hover:shadow-lg transition-all cursor-pointer group">
-              <CardHeader className="text-center">
-                <div className="w-12 h-12 verdix-gradient rounded-xl mx-auto mb-3 flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <BarChart3 className="w-6 h-6 text-white" />
+            <Card className="border-border cursor-pointer">
+              <CardHeader className="text-center pb-4">
+                <div className="w-10 h-10 verdix-gradient rounded-lg mx-auto mb-2 flex items-center justify-center">
+                  <BarChart3 className="w-5 h-5 text-white" />
                 </div>
-                <CardTitle className="text-foreground font-space">Test Results</CardTitle>
-                <CardDescription className="font-space">View completed test outcomes and insights</CardDescription>
+                <CardTitle className="text-foreground font-space text-lg">Test Results</CardTitle>
+                <CardDescription className="font-space text-sm">View completed test outcomes and insights</CardDescription>
               </CardHeader>
             </Card>
           </Link>
 
           <Link to="/tests/insights">
-            <Card className="border-border hover:border-primary/50 hover:shadow-lg transition-all cursor-pointer group">
-              <CardHeader className="text-center">
-                <div className="w-12 h-12 verdix-gradient rounded-xl mx-auto mb-3 flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <TrendingUp className="w-6 h-6 text-white" />
+            <Card className="border-border cursor-pointer">
+              <CardHeader className="text-center pb-4">
+                <div className="w-10 h-10 verdix-gradient rounded-lg mx-auto mb-2 flex items-center justify-center">
+                  <TrendingUp className="w-5 h-5 text-white" />
                 </div>
-                <CardTitle className="text-foreground font-space">Content Insights</CardTitle>
-                <CardDescription className="font-space">Discover what content approaches work best</CardDescription>
+                <CardTitle className="text-foreground font-space text-lg">Content Insights</CardTitle>
+                <CardDescription className="font-space text-sm">Discover what content approaches work best</CardDescription>
               </CardHeader>
             </Card>
           </Link>
