@@ -20,8 +20,7 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-				sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'sans-serif'],
-				display: ['Inter', 'sans-serif'],
+				sans: ['Inter', 'sans-serif'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',
@@ -66,29 +65,6 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				},
-				verdix: {
-					primary: 'rgb(var(--verdix-primary))',
-					'primary-light': 'rgb(var(--verdix-primary-light))',
-					'primary-dark': 'rgb(var(--verdix-primary-dark))',
-					accent: 'rgb(var(--verdix-accent))',
-					success: 'rgb(var(--verdix-success))',
-					warning: 'rgb(var(--verdix-warning))',
-					error: 'rgb(var(--verdix-error))',
-					dark: 'rgb(var(--verdix-dark))',
-					darker: 'rgb(var(--verdix-darker))',
-					light: 'rgb(var(--verdix-light))',
-					gray: {
-						100: 'rgb(var(--verdix-gray-100))',
-						200: 'rgb(var(--verdix-gray-200))',
-						300: 'rgb(var(--verdix-gray-300))',
-						400: 'rgb(var(--verdix-gray-400))',
-						500: 'rgb(var(--verdix-gray-500))',
-						600: 'rgb(var(--verdix-gray-600))',
-						700: 'rgb(var(--verdix-gray-700))',
-						800: 'rgb(var(--verdix-gray-800))',
-						900: 'rgb(var(--verdix-gray-900))',
-					}
 				}
 			},
 			borderRadius: {
