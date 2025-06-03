@@ -1,10 +1,9 @@
-
 import { DashboardLayout } from "@/components/DashboardLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useParams, useNavigate } from "react-router-dom";
-import { LineChart, Line, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import { TrendingUp, TrendingDown, Eye, MousePointer, Clock, Users, ArrowRight, Target, Lightbulb } from "lucide-react";
 
 const TestDetails = () => {
@@ -155,11 +154,11 @@ const TestDetails = () => {
           <div className="lg:col-span-2">
             <Card className="border-primary/20">
               <CardHeader>
-                <CardTitle className="font-space">Views Over Time</CardTitle>
+                <CardTitle className="font-space">Cumulative Views Comparison</CardTitle>
               </CardHeader>
               <CardContent>
                 <ResponsiveContainer width="100%" height={300}>
-                  <AreaChart data={testData.timeSeriesData}>
+                  <LineChart data={testData.timeSeriesData}>
                     <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
                     <XAxis dataKey="day" className="fill-muted-foreground" />
                     <YAxis className="fill-muted-foreground" />
@@ -171,23 +170,23 @@ const TestDetails = () => {
                       }} 
                     />
                     <Legend />
-                    <Area 
+                    <Line 
                       type="monotone" 
                       dataKey="control" 
-                      stackId="1"
                       stroke="hsl(var(--muted-foreground))" 
-                      fill="hsl(var(--muted))"
+                      strokeWidth={2}
                       name="Original Approach"
+                      dot={{ fill: 'hsl(var(--muted-foreground))', strokeWidth: 2 }}
                     />
-                    <Area 
+                    <Line 
                       type="monotone" 
                       dataKey="variant" 
-                      stackId="1"
                       stroke="hsl(var(--primary))" 
-                      fill="hsl(var(--primary))"
+                      strokeWidth={2}
                       name="AI Story Prompts"
+                      dot={{ fill: 'hsl(var(--primary))', strokeWidth: 2 }}
                     />
-                  </AreaChart>
+                  </LineChart>
                 </ResponsiveContainer>
               </CardContent>
             </Card>
@@ -305,11 +304,6 @@ const TestDetails = () => {
                   </li>
                 ))}
               </ul>
-              <div className="mt-6 pt-4 border-t border-border">
-                <Button className="w-full verdix-gradient text-white hover:opacity-90 font-space">
-                  Apply Winning Variant
-                </Button>
-              </div>
             </CardContent>
           </Card>
         </div>
