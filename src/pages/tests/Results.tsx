@@ -1,10 +1,9 @@
-
 import { DashboardLayout } from "@/components/DashboardLayout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import { TrendingUp, TrendingDown, Eye, MousePointer, Calendar, Users } from "lucide-react";
+import { TrendingUp, TrendingDown, Eye, MousePointer } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -93,6 +92,19 @@ const Results = () => {
         variantLikes: 1234,
         totalImpressions: 105000
       }
+    }
+  ];
+
+  const getComparisonData = (test: any) => [
+    {
+      name: 'Control',
+      views: test.controlAvgViews,
+      ctr: test.controlCTR
+    },
+    {
+      name: 'Variant',
+      views: test.variantAvgViews,
+      ctr: test.variantCTR
     }
   ];
 
@@ -356,37 +368,26 @@ const Results = () => {
           </Card>
         </div>
 
-        {/* Test Results Cards */}
-        <div className="space-y-6">
+        {/* Recent Test Results */}
+        <div className="space-y-4">
           {completedTests.map((test) => (
             <Card 
               key={test.id} 
-              className="border-primary/20 hover:border-primary/40 transition-all hover:shadow-lg cursor-pointer"
+              className="border-primary/20 hover:border-primary/40 transition-colors cursor-pointer"
               onClick={() => navigate(`/tests/${test.id}`)}
             >
               <CardHeader>
                 <div className="flex items-start justify-between">
-                  <div className="flex-1">
-                    <CardTitle className="text-foreground font-space hover:text-primary transition-colors text-xl mb-2">
+                  <div>
+                    <CardTitle className="text-foreground font-space hover:text-primary transition-colors">
                       {test.name}
                     </CardTitle>
-                    <div className="flex items-center gap-4 text-sm text-muted-foreground font-space">
-                      <div className="flex items-center gap-1">
-                        <Calendar className="w-4 h-4" />
-                        <span>{test.startDate} - {test.endDate}</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <Users className="w-4 h-4" />
-                        <span>{test.controlVideos + test.variantVideos} videos</span>
-                      </div>
-                    </div>
+                    <CardDescription className="font-space">
+                      {test.startDate} - {test.endDate} • {test.controlVideos + test.variantVideos} videos
+                    </CardDescription>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Badge className={`font-space ${
-                      test.winner.includes('Variant') 
-                        ? 'bg-green-100 text-green-700 border-green-200' 
-                        : 'bg-blue-100 text-blue-700 border-blue-200'
-                    }`}>
+                    <Badge className="bg-primary/10 text-primary border-primary/20 font-space">
                       {test.winner.includes('Variant') ? 'Variant Won' : 'Control Won'}
                     </Badge>
                     <Badge variant="outline" className="font-space">
@@ -396,92 +397,53 @@ const Results = () => {
                 </div>
               </CardHeader>
               <CardContent>
-                <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-                  {/* Performance Metrics */}
-                  <div className="lg:col-span-3 grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div className="p-4 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 rounded-lg border border-blue-200 dark:border-blue-800">
-                      <div className="flex items-center gap-2 mb-2">
-                        <Eye className="w-5 h-5 text-blue-600" />
-                        <span className="text-sm font-semibold text-blue-700 dark:text-blue-300 font-space">Views Comparison</span>
-                      </div>
-                      <div className="space-y-1">
-                        <div className="flex justify-between items-center">
-                          <span className="text-sm font-space">Control:</span>
-                          <span className="font-bold font-space">{test.controlAvgViews.toLocaleString()}</span>
-                        </div>
-                        <div className="flex justify-between items-center">
-                          <span className="text-sm font-space">Variant:</span>
-                          <div className="flex items-center gap-1">
-                            <span className="font-bold text-primary font-space">{test.variantAvgViews.toLocaleString()}</span>
-                            {test.variantAvgViews > test.controlAvgViews ? 
-                              <TrendingUp className="w-4 h-4 text-green-500" /> : 
-                              <TrendingDown className="w-4 h-4 text-red-500" />
-                            }
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="p-4 bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-800/20 rounded-lg border border-purple-200 dark:border-purple-800">
-                      <div className="flex items-center gap-2 mb-2">
-                        <MousePointer className="w-5 h-5 text-purple-600" />
-                        <span className="text-sm font-semibold text-purple-700 dark:text-purple-300 font-space">Click-Through Rate</span>
-                      </div>
-                      <div className="space-y-1">
-                        <div className="flex justify-between items-center">
-                          <span className="text-sm font-space">Control:</span>
-                          <span className="font-bold font-space">{test.controlCTR}%</span>
-                        </div>
-                        <div className="flex justify-between items-center">
-                          <span className="text-sm font-space">Variant:</span>
-                          <div className="flex items-center gap-1">
-                            <span className="font-bold text-primary font-space">{test.variantCTR}%</span>
-                            {test.variantCTR > test.controlCTR ? 
-                              <TrendingUp className="w-4 h-4 text-green-500" /> : 
-                              <TrendingDown className="w-4 h-4 text-red-500" />
-                            }
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="p-4 bg-gradient-to-br from-orange-50 to-orange-100 dark:from-orange-900/20 dark:to-orange-800/20 rounded-lg border border-orange-200 dark:border-orange-800">
-                      <div className="flex items-center gap-2 mb-2">
-                        <TrendingUp className="w-5 h-5 text-orange-600" />
-                        <span className="text-sm font-semibold text-orange-700 dark:text-orange-300 font-space">Retention Rate</span>
-                      </div>
-                      <div className="space-y-1">
-                        <div className="flex justify-between items-center">
-                          <span className="text-sm font-space">Control:</span>
-                          <span className="font-bold font-space">{test.detailedStats.controlRetention}%</span>
-                        </div>
-                        <div className="flex justify-between items-center">
-                          <span className="text-sm font-space">Variant:</span>
-                          <div className="flex items-center gap-1">
-                            <span className="font-bold text-primary font-space">{test.detailedStats.variantRetention}%</span>
-                            {test.detailedStats.variantRetention > test.detailedStats.controlRetention ? 
-                              <TrendingUp className="w-4 h-4 text-green-500" /> : 
-                              <TrendingDown className="w-4 h-4 text-red-500" />
-                            }
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                  {/* Quick Chart */}
+                  <div className="lg:col-span-2">
+                    <ResponsiveContainer width="100%" height={150}>
+                      <BarChart data={getComparisonData(test)}>
+                        <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
+                        <XAxis dataKey="name" className="fill-muted-foreground" />
+                        <YAxis className="fill-muted-foreground" />
+                        <Tooltip 
+                          contentStyle={{ 
+                            backgroundColor: 'hsl(var(--card))', 
+                            border: '1px solid hsl(var(--border))',
+                            borderRadius: '8px'
+                          }} 
+                        />
+                        <Bar dataKey="views" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
+                      </BarChart>
+                    </ResponsiveContainer>
                   </div>
 
-                  {/* Result Summary */}
-                  <div className="flex flex-col justify-center">
-                    <div className="p-6 bg-primary/5 border-2 border-primary/20 rounded-lg text-center">
-                      <p className="text-3xl font-bold text-primary font-space mb-1">{test.improvement}</p>
-                      <p className="text-sm text-muted-foreground font-space mb-2">{test.metric} improvement</p>
-                      <Badge className="bg-primary/10 text-primary border-primary/20 font-space">
-                        {test.confidence} confident
-                      </Badge>
+                  {/* Quick Stats */}
+                  <div className="space-y-3">
+                    <div className="p-3 bg-muted/30 rounded-lg">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Eye className="w-4 h-4 text-muted-foreground" />
+                        <span className="text-sm font-space">Views</span>
+                      </div>
+                      <div className="text-sm font-space">
+                        <div className="flex justify-between">
+                          <span>Control:</span>
+                          <span>{test.controlAvgViews.toLocaleString()}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Variant:</span>
+                          <span className="text-primary">{test.variantAvgViews.toLocaleString()}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="p-3 bg-primary/5 border border-primary/20 rounded-lg text-center">
+                      <p className="text-2xl font-bold text-primary font-space">{test.improvement}</p>
+                      <p className="text-sm text-muted-foreground font-space">{test.metric} improvement</p>
                     </div>
                   </div>
                 </div>
 
-                <div className="mt-6 text-center">
+                <div className="mt-4 text-center">
                   <p className="text-sm text-muted-foreground font-space">Click to view detailed analysis →</p>
                 </div>
               </CardContent>
