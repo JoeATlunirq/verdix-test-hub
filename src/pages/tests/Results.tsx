@@ -3,8 +3,7 @@ import { DashboardLayout } from "@/components/DashboardLayout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import { TrendingUp, TrendingDown, Eye, MousePointer, Calendar, Users } from "lucide-react";
+import { TrendingUp, TrendingDown, Eye, MousePointer, Calendar, Users, ArrowRight } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -96,29 +95,6 @@ const Results = () => {
     }
   ];
 
-  const getDetailedComparisonData = (test: any) => [
-    {
-      metric: 'Views',
-      control: test.controlAvgViews,
-      variant: test.variantAvgViews
-    },
-    {
-      metric: 'CTR',
-      control: test.controlCTR,
-      variant: test.variantCTR
-    },
-    {
-      metric: 'Retention',
-      control: test.detailedStats.controlRetention,
-      variant: test.detailedStats.variantRetention
-    },
-    {
-      metric: 'Engagement',
-      control: test.detailedStats.controlEngagement,
-      variant: test.detailedStats.variantEngagement
-    }
-  ];
-
   if (selectedTest) {
     const test = completedTests.find(t => t.id === selectedTest);
     if (!test) return null;
@@ -140,116 +116,132 @@ const Results = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {/* Performance Chart */}
+          {/* Winner Summary */}
+          <Card className="border-primary/20 bg-primary/5">
+            <CardContent className="p-8">
+              <div className="text-center">
+                <div className="mb-4">
+                  <Badge className={`text-lg px-4 py-2 ${
+                    test.winner.includes('Variant') 
+                      ? 'bg-green-100 text-green-700 border-green-200' 
+                      : 'bg-blue-100 text-blue-700 border-blue-200'
+                  }`}>
+                    {test.winner}
+                  </Badge>
+                </div>
+                <h3 className="text-4xl font-bold text-primary font-space mb-2">{test.improvement}</h3>
+                <p className="text-lg text-muted-foreground font-space mb-4">improvement in {test.metric}</p>
+                <Badge className="bg-primary/10 text-primary border-primary/20 font-space text-sm">
+                  {test.confidence} confidence
+                </Badge>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Performance Metrics Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <Card className="border-primary/20">
-              <CardHeader>
-                <CardTitle className="font-space">Performance Comparison</CardTitle>
+              <CardHeader className="pb-3">
+                <div className="flex items-center gap-2">
+                  <Eye className="w-5 h-5 text-blue-600" />
+                  <CardTitle className="text-lg font-space">Views</CardTitle>
+                </div>
               </CardHeader>
               <CardContent>
-                <ResponsiveContainer width="100%" height={300}>
-                  <BarChart data={getDetailedComparisonData(test)}>
-                    <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
-                    <XAxis dataKey="metric" className="fill-muted-foreground" />
-                    <YAxis className="fill-muted-foreground" />
-                    <Tooltip 
-                      contentStyle={{ 
-                        backgroundColor: 'hsl(var(--card))', 
-                        border: '1px solid hsl(var(--border))',
-                        borderRadius: '8px'
-                      }} 
-                    />
-                    <Bar dataKey="control" fill="hsl(var(--muted-foreground))" radius={[4, 4, 0, 0]} />
-                    <Bar dataKey="variant" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
-                  </BarChart>
-                </ResponsiveContainer>
+                <div className="space-y-3">
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-muted-foreground font-space">Control:</span>
+                    <span className="font-bold font-space">{test.controlAvgViews.toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-muted-foreground font-space">Variant:</span>
+                    <div className="flex items-center gap-2">
+                      <span className="font-bold text-primary font-space">{test.variantAvgViews.toLocaleString()}</span>
+                      {test.variantAvgViews > test.controlAvgViews ? 
+                        <TrendingUp className="w-4 h-4 text-green-500" /> : 
+                        <TrendingDown className="w-4 h-4 text-red-500" />
+                      }
+                    </div>
+                  </div>
+                </div>
               </CardContent>
             </Card>
 
-            {/* Key Metrics */}
             <Card className="border-primary/20">
-              <CardHeader>
-                <CardTitle className="font-space">Key Metrics</CardTitle>
+              <CardHeader className="pb-3">
+                <div className="flex items-center gap-2">
+                  <MousePointer className="w-5 h-5 text-purple-600" />
+                  <CardTitle className="text-lg font-space">CTR</CardTitle>
+                </div>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="p-4 bg-muted/30 rounded-lg">
-                    <p className="text-sm text-muted-foreground font-space mb-2">Average Views</p>
-                    <div className="space-y-1">
-                      <div className="flex justify-between items-center">
-                        <span className="font-space">Control:</span>
-                        <span className="font-bold font-space">{test.controlAvgViews.toLocaleString()}</span>
-                      </div>
-                      <div className="flex justify-between items-center">
-                        <span className="font-space">Variant:</span>
-                        <div className="flex items-center gap-2">
-                          <span className="font-bold font-space">{test.variantAvgViews.toLocaleString()}</span>
-                          {test.variantAvgViews > test.controlAvgViews ? 
-                            <TrendingUp className="w-4 h-4 text-green-500" /> : 
-                            <TrendingDown className="w-4 h-4 text-red-500" />
-                          }
-                        </div>
-                      </div>
+              <CardContent>
+                <div className="space-y-3">
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-muted-foreground font-space">Control:</span>
+                    <span className="font-bold font-space">{test.controlCTR}%</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-muted-foreground font-space">Variant:</span>
+                    <div className="flex items-center gap-2">
+                      <span className="font-bold text-primary font-space">{test.variantCTR}%</span>
+                      {test.variantCTR > test.controlCTR ? 
+                        <TrendingUp className="w-4 h-4 text-green-500" /> : 
+                        <TrendingDown className="w-4 h-4 text-red-500" />
+                      }
                     </div>
                   </div>
+                </div>
+              </CardContent>
+            </Card>
 
-                  <div className="p-4 bg-muted/30 rounded-lg">
-                    <p className="text-sm text-muted-foreground font-space mb-2">Click-Through Rate</p>
-                    <div className="space-y-1">
-                      <div className="flex justify-between items-center">
-                        <span className="font-space">Control:</span>
-                        <span className="font-bold font-space">{test.controlCTR}%</span>
-                      </div>
-                      <div className="flex justify-between items-center">
-                        <span className="font-space">Variant:</span>
-                        <div className="flex items-center gap-2">
-                          <span className="font-bold font-space">{test.variantCTR}%</span>
-                          {test.variantCTR > test.controlCTR ? 
-                            <TrendingUp className="w-4 h-4 text-green-500" /> : 
-                            <TrendingDown className="w-4 h-4 text-red-500" />
-                          }
-                        </div>
-                      </div>
+            <Card className="border-primary/20">
+              <CardHeader className="pb-3">
+                <div className="flex items-center gap-2">
+                  <TrendingUp className="w-5 h-5 text-orange-600" />
+                  <CardTitle className="text-lg font-space">Retention</CardTitle>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-muted-foreground font-space">Control:</span>
+                    <span className="font-bold font-space">{test.detailedStats.controlRetention}%</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-muted-foreground font-space">Variant:</span>
+                    <div className="flex items-center gap-2">
+                      <span className="font-bold text-primary font-space">{test.detailedStats.variantRetention}%</span>
+                      {test.detailedStats.variantRetention > test.detailedStats.controlRetention ? 
+                        <TrendingUp className="w-4 h-4 text-green-500" /> : 
+                        <TrendingDown className="w-4 h-4 text-red-500" />
+                      }
                     </div>
                   </div>
+                </div>
+              </CardContent>
+            </Card>
 
-                  <div className="p-4 bg-muted/30 rounded-lg">
-                    <p className="text-sm text-muted-foreground font-space mb-2">Retention Rate</p>
-                    <div className="space-y-1">
-                      <div className="flex justify-between items-center">
-                        <span className="font-space">Control:</span>
-                        <span className="font-bold font-space">{test.detailedStats.controlRetention}%</span>
-                      </div>
-                      <div className="flex justify-between items-center">
-                        <span className="font-space">Variant:</span>
-                        <div className="flex items-center gap-2">
-                          <span className="font-bold font-space">{test.detailedStats.variantRetention}%</span>
-                          {test.detailedStats.variantRetention > test.detailedStats.controlRetention ? 
-                            <TrendingUp className="w-4 h-4 text-green-500" /> : 
-                            <TrendingDown className="w-4 h-4 text-red-500" />
-                          }
-                        </div>
-                      </div>
-                    </div>
+            <Card className="border-primary/20">
+              <CardHeader className="pb-3">
+                <div className="flex items-center gap-2">
+                  <TrendingUp className="w-5 h-5 text-green-600" />
+                  <CardTitle className="text-lg font-space">Engagement</CardTitle>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-muted-foreground font-space">Control:</span>
+                    <span className="font-bold font-space">{test.detailedStats.controlEngagement}</span>
                   </div>
-
-                  <div className="p-4 bg-muted/30 rounded-lg">
-                    <p className="text-sm text-muted-foreground font-space mb-2">Engagement Score</p>
-                    <div className="space-y-1">
-                      <div className="flex justify-between items-center">
-                        <span className="font-space">Control:</span>
-                        <span className="font-bold font-space">{test.detailedStats.controlEngagement}</span>
-                      </div>
-                      <div className="flex justify-between items-center">
-                        <span className="font-space">Variant:</span>
-                        <div className="flex items-center gap-2">
-                          <span className="font-bold font-space">{test.detailedStats.variantEngagement}</span>
-                          {test.detailedStats.variantEngagement > test.detailedStats.controlEngagement ? 
-                            <TrendingUp className="w-4 h-4 text-green-500" /> : 
-                            <TrendingDown className="w-4 h-4 text-red-500" />
-                          }
-                        </div>
-                      </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-muted-foreground font-space">Variant:</span>
+                    <div className="flex items-center gap-2">
+                      <span className="font-bold text-primary font-space">{test.detailedStats.variantEngagement}</span>
+                      {test.detailedStats.variantEngagement > test.detailedStats.controlEngagement ? 
+                        <TrendingUp className="w-4 h-4 text-green-500" /> : 
+                        <TrendingDown className="w-4 h-4 text-red-500" />
+                      }
                     </div>
                   </div>
                 </div>
@@ -260,13 +252,13 @@ const Results = () => {
           {/* Social Metrics */}
           <Card className="border-primary/20">
             <CardHeader>
-              <CardTitle className="font-space">Social Engagement</CardTitle>
+              <CardTitle className="font-space">Social Engagement Details</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="text-center p-4 bg-muted/30 rounded-lg">
-                  <p className="text-sm text-muted-foreground font-space mb-2">Comments</p>
-                  <div className="space-y-1">
+                <div className="text-center p-6 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 rounded-lg border border-blue-200 dark:border-blue-800">
+                  <p className="text-sm text-muted-foreground font-space mb-3">Comments</p>
+                  <div className="space-y-2">
                     <p className="text-lg font-bold text-foreground font-space">
                       Control: {test.detailedStats.controlComments}
                     </p>
@@ -276,9 +268,9 @@ const Results = () => {
                   </div>
                 </div>
 
-                <div className="text-center p-4 bg-muted/30 rounded-lg">
-                  <p className="text-sm text-muted-foreground font-space mb-2">Likes</p>
-                  <div className="space-y-1">
+                <div className="text-center p-6 bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-800/20 rounded-lg border border-purple-200 dark:border-purple-800">
+                  <p className="text-sm text-muted-foreground font-space mb-3">Likes</p>
+                  <div className="space-y-2">
                     <p className="text-lg font-bold text-foreground font-space">
                       Control: {test.detailedStats.controlLikes}
                     </p>
@@ -288,27 +280,12 @@ const Results = () => {
                   </div>
                 </div>
 
-                <div className="text-center p-4 bg-muted/30 rounded-lg">
-                  <p className="text-sm text-muted-foreground font-space mb-2">Total Impressions</p>
+                <div className="text-center p-6 bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20 rounded-lg border border-green-200 dark:border-green-800">
+                  <p className="text-sm text-muted-foreground font-space mb-3">Total Impressions</p>
                   <p className="text-2xl font-bold text-primary font-space">
                     {test.detailedStats.totalImpressions.toLocaleString()}
                   </p>
                 </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Winner Summary */}
-          <Card className="border-primary/20 bg-primary/5">
-            <CardContent className="p-6">
-              <div className="text-center">
-                <h3 className="text-xl font-bold text-foreground font-space mb-2">Test Result</h3>
-                <p className="text-lg text-primary font-space mb-1">{test.winner}</p>
-                <p className="text-3xl font-bold text-primary font-space">{test.improvement}</p>
-                <p className="text-sm text-muted-foreground font-space">improvement in {test.metric}</p>
-                <Badge className="mt-3 bg-primary/10 text-primary border-primary/20 font-space">
-                  {test.confidence} confidence
-                </Badge>
               </div>
             </CardContent>
           </Card>
@@ -361,13 +338,13 @@ const Results = () => {
           {completedTests.map((test) => (
             <Card 
               key={test.id} 
-              className="border-primary/20 hover:border-primary/40 transition-all hover:shadow-lg cursor-pointer"
-              onClick={() => navigate(`/tests/${test.id}`)}
+              className="border-primary/20 hover:border-primary/40 transition-all hover:shadow-lg cursor-pointer group"
+              onClick={() => setSelectedTest(test.id)}
             >
               <CardHeader>
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
-                    <CardTitle className="text-foreground font-space hover:text-primary transition-colors text-xl mb-2">
+                    <CardTitle className="text-foreground font-space group-hover:text-primary transition-colors text-xl mb-2">
                       {test.name}
                     </CardTitle>
                     <div className="flex items-center gap-4 text-sm text-muted-foreground font-space">
@@ -400,11 +377,11 @@ const Results = () => {
                   {/* Performance Metrics */}
                   <div className="lg:col-span-3 grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="p-4 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 rounded-lg border border-blue-200 dark:border-blue-800">
-                      <div className="flex items-center gap-2 mb-2">
+                      <div className="flex items-center gap-2 mb-3">
                         <Eye className="w-5 h-5 text-blue-600" />
-                        <span className="text-sm font-semibold text-blue-700 dark:text-blue-300 font-space">Views Comparison</span>
+                        <span className="text-sm font-semibold text-blue-700 dark:text-blue-300 font-space">Views</span>
                       </div>
-                      <div className="space-y-1">
+                      <div className="space-y-2">
                         <div className="flex justify-between items-center">
                           <span className="text-sm font-space">Control:</span>
                           <span className="font-bold font-space">{test.controlAvgViews.toLocaleString()}</span>
@@ -423,11 +400,11 @@ const Results = () => {
                     </div>
 
                     <div className="p-4 bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-800/20 rounded-lg border border-purple-200 dark:border-purple-800">
-                      <div className="flex items-center gap-2 mb-2">
+                      <div className="flex items-center gap-2 mb-3">
                         <MousePointer className="w-5 h-5 text-purple-600" />
-                        <span className="text-sm font-semibold text-purple-700 dark:text-purple-300 font-space">Click-Through Rate</span>
+                        <span className="text-sm font-semibold text-purple-700 dark:text-purple-300 font-space">CTR</span>
                       </div>
-                      <div className="space-y-1">
+                      <div className="space-y-2">
                         <div className="flex justify-between items-center">
                           <span className="text-sm font-space">Control:</span>
                           <span className="font-bold font-space">{test.controlCTR}%</span>
@@ -446,11 +423,11 @@ const Results = () => {
                     </div>
 
                     <div className="p-4 bg-gradient-to-br from-orange-50 to-orange-100 dark:from-orange-900/20 dark:to-orange-800/20 rounded-lg border border-orange-200 dark:border-orange-800">
-                      <div className="flex items-center gap-2 mb-2">
+                      <div className="flex items-center gap-2 mb-3">
                         <TrendingUp className="w-5 h-5 text-orange-600" />
-                        <span className="text-sm font-semibold text-orange-700 dark:text-orange-300 font-space">Retention Rate</span>
+                        <span className="text-sm font-semibold text-orange-700 dark:text-orange-300 font-space">Retention</span>
                       </div>
-                      <div className="space-y-1">
+                      <div className="space-y-2">
                         <div className="flex justify-between items-center">
                           <span className="text-sm font-space">Control:</span>
                           <span className="font-bold font-space">{test.detailedStats.controlRetention}%</span>
@@ -481,8 +458,9 @@ const Results = () => {
                   </div>
                 </div>
 
-                <div className="mt-6 text-center">
-                  <p className="text-sm text-muted-foreground font-space">Click to view detailed analysis →</p>
+                <div className="mt-6 flex items-center justify-center gap-2 text-sm text-muted-foreground font-space group-hover:text-primary transition-colors">
+                  <span>Click to view detailed analysis</span>
+                  <ArrowRight className="w-4 h-4" />
                 </div>
               </CardContent>
             </Card>
