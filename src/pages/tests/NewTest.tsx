@@ -1,3 +1,4 @@
+
 import { DashboardLayout } from "@/components/DashboardLayout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -6,8 +7,26 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { Plus, X, Upload, BarChart3, TrendingUp, Eye, Clock, Heart, MessageCircle, Share2, ThumbsUp, DollarSign } from "lucide-react";
+import { Plus, X, Upload, BarChart3, TrendingUp, Eye, Clock, Heart, MessageCircle, Share2, ThumbsUp, DollarSign, GripVertical } from "lucide-react";
 import { useState } from "react";
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core';
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  verticalListSortingStrategy,
+} from '@dnd-kit/sortable';
+import {
+  useSortable,
+} from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 
 const availableMetrics = [
   { id: 'views', name: 'Views', icon: Eye, description: 'Total video views' },
@@ -21,10 +40,77 @@ const availableMetrics = [
   { id: 'revenue', name: 'Revenue', icon: DollarSign, description: 'Total revenue generated from video' },
 ];
 
+interface SortableMetricItemProps {
+  metricId: string;
+  index: number;
+  onRemove: (metricId: string) => void;
+}
+
+function SortableMetricItem({ metricId, index, onRemove }: SortableMetricItemProps) {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+  } = useSortable({ id: metricId });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
+
+  const metric = availableMetrics.find(m => m.id === metricId);
+  if (!metric) return null;
+
+  const IconComponent = metric.icon;
+
+  return (
+    <div
+      ref={setNodeRef}
+      style={style}
+      className="flex items-center justify-between p-3 bg-primary/5 border border-primary/20 rounded-lg"
+    >
+      <div className="flex items-center gap-3">
+        <div
+          {...attributes}
+          {...listeners}
+          className="cursor-grab active:cursor-grabbing p-1 hover:bg-primary/10 rounded"
+        >
+          <GripVertical className="w-4 h-4 text-muted-foreground" />
+        </div>
+        <Badge className="bg-primary/20 text-primary border-primary/30 font-space">
+          #{index + 1}
+        </Badge>
+        <IconComponent className="w-4 h-4 text-primary" />
+        <div>
+          <p className="font-medium text-foreground font-space">{metric.name}</p>
+          <p className="text-xs text-muted-foreground font-space">{metric.description}</p>
+        </div>
+      </div>
+      <Button
+        variant="outline"
+        size="sm"
+        onClick={() => onRemove(metricId)}
+        className="h-8 w-8 p-0 border-destructive/20 text-destructive hover:bg-destructive/10"
+      >
+        <X className="w-4 h-4" />
+      </Button>
+    </div>
+  );
+}
+
 const NewTest = () => {
   const [controlVideos, setControlVideos] = useState<string[]>([""]);
   const [variantVideos, setVariantVideos] = useState<string[]>([""]);
   const [selectedMetrics, setSelectedMetrics] = useState<string[]>(['views', 'ctr', 'retention']);
+
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
 
   const addControlVideo = () => {
     setControlVideos([...controlVideos, ""]);
@@ -64,19 +150,16 @@ const NewTest = () => {
     }
   };
 
-  const moveMetricUp = (index: number) => {
-    if (index > 0) {
-      const newMetrics = [...selectedMetrics];
-      [newMetrics[index], newMetrics[index - 1]] = [newMetrics[index - 1], newMetrics[index]];
-      setSelectedMetrics(newMetrics);
-    }
-  };
+  const handleDragEnd = (event: any) => {
+    const { active, over } = event;
 
-  const moveMetricDown = (index: number) => {
-    if (index < selectedMetrics.length - 1) {
-      const newMetrics = [...selectedMetrics];
-      [newMetrics[index], newMetrics[index + 1]] = [newMetrics[index + 1], newMetrics[index]];
-      setSelectedMetrics(newMetrics);
+    if (active.id !== over.id) {
+      setSelectedMetrics((items) => {
+        const oldIndex = items.indexOf(active.id);
+        const newIndex = items.indexOf(over.id);
+
+        return arrayMove(items, oldIndex, newIndex);
+      });
     }
   };
 
@@ -151,60 +234,34 @@ const NewTest = () => {
                   Priority Metrics
                 </CardTitle>
                 <CardDescription className="font-space">
-                  Select and prioritize the metrics most important to track for this test
+                  Select and prioritize the metrics most important to track for this test. Drag to reorder by priority.
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="space-y-3">
-                  <h4 className="font-medium text-foreground font-space">Selected Metrics (in priority order)</h4>
-                  {selectedMetrics.map((metricId, index) => {
-                    const metric = availableMetrics.find(m => m.id === metricId);
-                    if (!metric) return null;
-                    const IconComponent = metric.icon;
-                    return (
-                      <div key={metricId} className="flex items-center justify-between p-3 bg-primary/5 border border-primary/20 rounded-lg">
-                        <div className="flex items-center gap-3">
-                          <Badge className="bg-primary/20 text-primary border-primary/30 font-space">
-                            #{index + 1}
-                          </Badge>
-                          <IconComponent className="w-4 h-4 text-primary" />
-                          <div>
-                            <p className="font-medium text-foreground font-space">{metric.name}</p>
-                            <p className="text-xs text-muted-foreground font-space">{metric.description}</p>
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => moveMetricUp(index)}
-                            disabled={index === 0}
-                            className="h-8 w-8 p-0"
-                          >
-                            ↑
-                          </Button>
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => moveMetricDown(index)}
-                            disabled={index === selectedMetrics.length - 1}
-                            className="h-8 w-8 p-0"
-                          >
-                            ↓
-                          </Button>
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => toggleMetric(metricId)}
-                            disabled={selectedMetrics.length === 1}
-                            className="h-8 w-8 p-0 border-destructive/20 text-destructive hover:bg-destructive/10"
-                          >
-                            <X className="w-4 h-4" />
-                          </Button>
-                        </div>
+                  <h4 className="font-medium text-foreground font-space">Selected Metrics (drag to reorder by priority)</h4>
+                  <DndContext
+                    sensors={sensors}
+                    collisionDetection={closestCenter}
+                    onDragEnd={handleDragEnd}
+                  >
+                    <SortableContext items={selectedMetrics} strategy={verticalListSortingStrategy}>
+                      <div className="space-y-2">
+                        {selectedMetrics.map((metricId, index) => (
+                          <SortableMetricItem
+                            key={metricId}
+                            metricId={metricId}
+                            index={index}
+                            onRemove={() => {
+                              if (selectedMetrics.length > 1) {
+                                toggleMetric(metricId);
+                              }
+                            }}
+                          />
+                        ))}
                       </div>
-                    );
-                  })}
+                    </SortableContext>
+                  </DndContext>
                 </div>
 
                 <div className="space-y-3">
