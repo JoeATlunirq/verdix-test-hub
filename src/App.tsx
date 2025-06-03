@@ -44,6 +44,7 @@ const App = () => (
             <Route path="/tests/schedule" element={<Schedule />} />
             <Route path="/tests/insights" element={<Insights />} />
             <Route path="/tests/new" element={<NewTest />} />
+            <Route path="/tests/:testId" element={<TestDetails />} />
             <Route path="/channels" element={<Channels />} />
             <Route path="/teams" element={<Teams />} />
             <Route path="/settings" element={<Settings />} />

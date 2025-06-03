@@ -8,7 +8,6 @@ import { useState } from "react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 const AllTests = () => {
-  const [selectedTest, setSelectedTest] = useState<number | null>(null);
   const navigate = useNavigate();
 
   const tests = [
@@ -125,7 +124,6 @@ const AllTests = () => {
     }
   ];
 
-  // Remove the selectedTest detailed view since we're using a separate route now
   return (
     <DashboardLayout>
       <div className="space-y-6">
