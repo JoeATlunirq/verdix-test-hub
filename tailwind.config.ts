@@ -20,7 +20,8 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-				sans: ['Inter', 'sans-serif'],
+				sans: ['Space Grotesk', 'Inter', 'sans-serif'],
+				space: ['Space Grotesk', 'sans-serif'],
 				orbitron: ['Orbitron', 'sans-serif'],
 			},
 			colors: {

@@ -11,21 +11,21 @@ const LandingPage = () => {
         <div className="container mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 verdix-gradient rounded-xl flex items-center justify-center">
-              <span className="text-white font-bold text-lg">V</span>
+              <span className="text-white font-bold text-lg font-orbitron">V</span>
             </div>
             <div>
-              <span className="text-2xl font-bold text-foreground">VERDIX</span>
-              <span className="text-sm bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-200 px-2 py-1 rounded ml-2 font-medium">PRO</span>
+              <span className="text-2xl font-bold text-foreground font-orbitron tracking-wider">VERDIX</span>
+              <span className="text-sm bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-200 px-2 py-1 rounded ml-2 font-semibold font-space">PRO</span>
             </div>
           </div>
           <div className="flex items-center gap-4">
             <Link to="/dashboard">
-              <Button variant="outline" className="border-green-200 dark:border-green-800 text-green-700 dark:text-green-300 hover:bg-green-50 dark:hover:bg-green-950">
+              <Button variant="outline" className="border-green-200 dark:border-green-800 text-green-700 dark:text-green-300 hover:bg-green-50 dark:hover:bg-green-950 font-space">
                 Sign In
               </Button>
             </Link>
             <Link to="/dashboard">
-              <Button className="verdix-gradient text-white hover:opacity-90">
+              <Button className="verdix-gradient text-white hover:opacity-90 font-space font-medium">
                 Get Started
               </Button>
             </Link>
@@ -36,23 +36,23 @@ const LandingPage = () => {
       {/* Hero Section */}
       <section className="container mx-auto px-6 py-20 text-center">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-6xl font-bold text-foreground mb-6 leading-tight">
+          <h1 className="text-6xl font-bold text-foreground mb-6 leading-tight font-space">
             YouTube A/B Testing
-            <span className="block verdix-gradient bg-clip-text text-transparent">
+            <span className="block verdix-gradient bg-clip-text text-transparent font-orbitron tracking-wide">
               Made Simple
             </span>
           </h1>
-          <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
+          <p className="text-xl text-muted-foreground mb-8 leading-relaxed font-space">
             Centralized, creator-first platform to simplify, automate, and elevate A/B testing for YouTube channels. 
             Connect via OAuth and get real performance metrics in one clean dashboard.
           </p>
           <div className="flex gap-4 justify-center">
             <Link to="/dashboard">
-              <Button size="lg" className="verdix-gradient text-white hover:opacity-90 px-8 py-3">
+              <Button size="lg" className="verdix-gradient text-white hover:opacity-90 px-8 py-3 font-space font-semibold">
                 Start Testing Free
               </Button>
             </Link>
-            <Button size="lg" variant="outline" className="border-green-200 dark:border-green-800 text-green-700 dark:text-green-300 hover:bg-green-50 dark:hover:bg-green-950 px-8 py-3">
+            <Button size="lg" variant="outline" className="border-green-200 dark:border-green-800 text-green-700 dark:text-green-300 hover:bg-green-50 dark:hover:bg-green-950 px-8 py-3 font-space">
               Watch Demo
             </Button>
           </div>
@@ -62,8 +62,8 @@ const LandingPage = () => {
       {/* Features Grid */}
       <section className="container mx-auto px-6 py-20">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-foreground mb-4">Core Features</h2>
-          <p className="text-xl text-muted-foreground">Everything you need to run successful YouTube A/B tests</p>
+          <h2 className="text-4xl font-bold text-foreground mb-4 font-space">Core Features</h2>
+          <p className="text-xl text-muted-foreground font-space">Everything you need to run successful YouTube A/B tests</p>
         </div>
         
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -102,10 +102,10 @@ const LandingPage = () => {
             <Card key={index} className="border-green-100 dark:border-border hover:shadow-lg transition-all duration-300 hover:border-green-200 dark:hover:border-primary/50">
               <CardHeader>
                 <div className="text-4xl mb-4">{feature.icon}</div>
-                <CardTitle className="text-foreground">{feature.title}</CardTitle>
+                <CardTitle className="text-foreground font-space">{feature.title}</CardTitle>
               </CardHeader>
               <CardContent>
-                <CardDescription className="text-muted-foreground text-base">
+                <CardDescription className="text-muted-foreground text-base font-space">
                   {feature.description}
                 </CardDescription>
               </CardContent>
@@ -117,10 +117,10 @@ const LandingPage = () => {
       {/* CTA Section */}
       <section className="verdix-gradient-subtle dark:bg-gradient-to-r dark:from-green-950/20 dark:to-green-900/20 py-20">
         <div className="container mx-auto px-6 text-center">
-          <h2 className="text-4xl font-bold text-foreground mb-4">Ready to optimize your YouTube performance?</h2>
-          <p className="text-xl text-muted-foreground mb-8">Join thousands of creators who trust VERDIX for their A/B testing needs.</p>
+          <h2 className="text-4xl font-bold text-foreground mb-4 font-space">Ready to optimize your YouTube performance?</h2>
+          <p className="text-xl text-muted-foreground mb-8 font-space">Join thousands of creators who trust VERDIX for their A/B testing needs.</p>
           <Link to="/dashboard">
-            <Button size="lg" className="verdix-gradient text-white hover:opacity-90 px-8 py-4 text-lg">
+            <Button size="lg" className="verdix-gradient text-white hover:opacity-90 px-8 py-4 text-lg font-space font-semibold">
               Start Your Free Trial
             </Button>
           </Link>
@@ -128,16 +128,16 @@ const LandingPage = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-slate-900 dark:bg-background border-t dark:border-border text-white dark:text-foreground py-12">
+      <footer className="bg-card dark:bg-background border-t dark:border-border text-foreground py-12">
         <div className="container mx-auto px-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 verdix-gradient rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">V</span>
+                <span className="text-white font-bold text-sm font-orbitron">V</span>
               </div>
-              <span className="text-xl font-bold">VERDIX PRO</span>
+              <span className="text-xl font-bold font-orbitron tracking-wider">VERDIX PRO</span>
             </div>
-            <p className="text-slate-400 dark:text-muted-foreground">© 2024 VERDIX. All rights reserved.</p>
+            <p className="text-muted-foreground font-space">© 2024 VERDIX. All rights reserved.</p>
           </div>
         </div>
       </footer>
