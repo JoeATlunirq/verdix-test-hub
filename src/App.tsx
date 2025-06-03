@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -7,7 +8,6 @@ import LandingPage from "./pages/LandingPage";
 import Dashboard from "./pages/Dashboard";
 import Tests from "./pages/Tests";
 import AllTests from "./pages/tests/AllTests";
-import TestDetail from "./pages/tests/TestDetail";
 import Results from "./pages/tests/Results";
 import Schedule from "./pages/tests/Schedule";
 import Insights from "./pages/tests/Insights";
