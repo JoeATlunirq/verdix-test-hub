@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
+import { Plus, ExternalLink } from "lucide-react";
 
 const AllTests = () => {
   const tests = [
@@ -62,13 +63,13 @@ const AllTests = () => {
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'running':
-        return 'bg-blue-100 text-blue-800';
+        return 'bg-blue-500/20 text-blue-400 border-blue-500/30';
       case 'completed':
-        return 'bg-green-100 text-green-800';
+        return 'bg-green-500/20 text-green-400 border-green-500/30';
       case 'scheduled':
-        return 'bg-orange-100 text-orange-800';
+        return 'bg-orange-500/20 text-orange-400 border-orange-500/30';
       default:
-        return 'bg-gray-100 text-gray-800';
+        return 'bg-muted text-muted-foreground border-border';
     }
   };
 
@@ -78,60 +79,69 @@ const AllTests = () => {
         {/* Page Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-slate-900">All Tests</h1>
-            <p className="text-slate-600 mt-1">Manage and monitor all your A/B tests</p>
+            <h1 className="text-3xl font-bold text-foreground">All Tests</h1>
+            <p className="text-muted-foreground mt-1">Manage and monitor all your A/B tests</p>
           </div>
           <Link to="/tests/new">
             <Button className="verdix-gradient text-white hover:opacity-90">
-              + New Test
+              <Plus className="w-4 h-4 mr-2" />
+              New Test
             </Button>
           </Link>
         </div>
 
         {/* Tests Table */}
-        <Card className="border-green-100">
+        <Card className="border-border bg-card">
           <CardHeader>
-            <CardTitle className="text-slate-900">Test Overview</CardTitle>
+            <CardTitle className="text-foreground">Test Overview</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
-                  <tr className="border-b border-slate-200">
-                    <th className="text-left py-3 px-4 font-semibold text-slate-900">Name</th>
-                    <th className="text-left py-3 px-4 font-semibold text-slate-900">Status</th>
-                    <th className="text-left py-3 px-4 font-semibold text-slate-900">Type</th>
-                    <th className="text-left py-3 px-4 font-semibold text-slate-900">Channel</th>
-                    <th className="text-left py-3 px-4 font-semibold text-slate-900">Start Date</th>
-                    <th className="text-left py-3 px-4 font-semibold text-slate-900">End Date</th>
-                    <th className="text-left py-3 px-4 font-semibold text-slate-900">Progress</th>
+                  <tr className="border-b border-border">
+                    <th className="text-left py-3 px-4 font-semibold text-foreground">Name</th>
+                    <th className="text-left py-3 px-4 font-semibold text-foreground">Status</th>
+                    <th className="text-left py-3 px-4 font-semibold text-foreground">Type</th>
+                    <th className="text-left py-3 px-4 font-semibold text-foreground">Channel</th>
+                    <th className="text-left py-3 px-4 font-semibold text-foreground">Start Date</th>
+                    <th className="text-left py-3 px-4 font-semibold text-foreground">End Date</th>
+                    <th className="text-left py-3 px-4 font-semibold text-foreground">Progress</th>
+                    <th className="text-left py-3 px-4 font-semibold text-foreground">Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   {tests.map((test) => (
-                    <tr key={test.id} className="border-b border-slate-100 hover:bg-slate-50">
+                    <tr key={test.id} className="border-b border-border hover:bg-accent/50 transition-colors">
                       <td className="py-4 px-4">
-                        <p className="font-medium text-slate-900">{test.name}</p>
+                        <p className="font-medium text-foreground">{test.name}</p>
                       </td>
                       <td className="py-4 px-4">
-                        <Badge className={getStatusColor(test.status)}>
+                        <Badge className={getStatusColor(test.status)} variant="outline">
                           {test.status}
                         </Badge>
                       </td>
-                      <td className="py-4 px-4 text-slate-600">{test.type}</td>
-                      <td className="py-4 px-4 text-slate-600">{test.channel}</td>
-                      <td className="py-4 px-4 text-slate-600">{test.startDate}</td>
-                      <td className="py-4 px-4 text-slate-600">{test.endDate}</td>
+                      <td className="py-4 px-4 text-muted-foreground">{test.type}</td>
+                      <td className="py-4 px-4 text-muted-foreground">{test.channel}</td>
+                      <td className="py-4 px-4 text-muted-foreground">{test.startDate}</td>
+                      <td className="py-4 px-4 text-muted-foreground">{test.endDate}</td>
                       <td className="py-4 px-4">
                         <div className="flex items-center gap-2">
-                          <div className="w-20 bg-slate-200 rounded-full h-2">
+                          <div className="w-20 bg-muted rounded-full h-2">
                             <div 
-                              className="bg-green-500 h-2 rounded-full transition-all duration-300"
+                              className="bg-primary h-2 rounded-full transition-all duration-300"
                               style={{ width: `${test.progress}%` }}
                             />
                           </div>
-                          <span className="text-sm text-slate-600">{test.progress}%</span>
+                          <span className="text-sm text-muted-foreground">{test.progress}%</span>
                         </div>
+                      </td>
+                      <td className="py-4 px-4">
+                        <Link to={`/tests/${test.id}`}>
+                          <Button variant="ghost" size="sm" className="text-primary hover:text-primary hover:bg-primary/10">
+                            <ExternalLink className="w-4 h-4" />
+                          </Button>
+                        </Link>
                       </td>
                     </tr>
                   ))}

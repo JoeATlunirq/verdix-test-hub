@@ -3,6 +3,7 @@ import { DashboardLayout } from "@/components/DashboardLayout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line } from 'recharts';
+import { TrendingUp, Award, TestTube } from "lucide-react";
 
 const Results = () => {
   const completedTests = [
@@ -50,92 +51,102 @@ const Results = () => {
       <div className="space-y-6">
         {/* Page Header */}
         <div>
-          <h1 className="text-3xl font-bold text-slate-900">Test Results</h1>
-          <p className="text-slate-600 mt-1">Analyze completed A/B test performance and insights</p>
+          <h1 className="text-3xl font-bold text-foreground">Test Results</h1>
+          <p className="text-muted-foreground mt-1">Analyze completed A/B test performance and insights</p>
         </div>
 
         {/* Summary Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <Card className="border-green-100">
+          <Card className="border-border bg-card">
             <CardHeader className="pb-2">
-              <CardDescription className="text-slate-600">Total Tests Completed</CardDescription>
-              <CardTitle className="text-3xl font-bold text-slate-900">24</CardTitle>
+              <CardDescription className="text-muted-foreground flex items-center gap-2">
+                <TestTube className="w-4 h-4" />
+                Total Tests Completed
+              </CardDescription>
+              <CardTitle className="text-3xl font-bold text-foreground">24</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-green-600">+8 this month</p>
+              <p className="text-sm text-primary">+8 this month</p>
             </CardContent>
           </Card>
 
-          <Card className="border-green-100">
+          <Card className="border-border bg-card">
             <CardHeader className="pb-2">
-              <CardDescription className="text-slate-600">Average Improvement</CardDescription>
-              <CardTitle className="text-3xl font-bold text-slate-900">+22%</CardTitle>
+              <CardDescription className="text-muted-foreground flex items-center gap-2">
+                <TrendingUp className="w-4 h-4" />
+                Average Improvement
+              </CardDescription>
+              <CardTitle className="text-3xl font-bold text-foreground">+22%</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-green-600">Across all metrics</p>
+              <p className="text-sm text-primary">Across all metrics</p>
             </CardContent>
           </Card>
 
-          <Card className="border-green-100">
+          <Card className="border-border bg-card">
             <CardHeader className="pb-2">
-              <CardDescription className="text-slate-600">Win Rate</CardDescription>
-              <CardTitle className="text-3xl font-bold text-slate-900">76%</CardTitle>
+              <CardDescription className="text-muted-foreground flex items-center gap-2">
+                <Award className="w-4 h-4" />
+                Win Rate
+              </CardDescription>
+              <CardTitle className="text-3xl font-bold text-foreground">76%</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-green-600">Tests with significant results</p>
+              <p className="text-sm text-primary">Tests with significant results</p>
             </CardContent>
           </Card>
         </div>
 
         {/* Performance Chart */}
-        <Card className="border-green-100">
+        <Card className="border-border bg-card">
           <CardHeader>
-            <CardTitle className="text-slate-900">Performance Comparison</CardTitle>
+            <CardTitle className="text-foreground">Performance Comparison</CardTitle>
             <CardDescription>Control vs Variant performance over time</CardDescription>
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={300}>
               <LineChart data={performanceData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-                <XAxis dataKey="name" stroke="#6b7280" />
-                <YAxis stroke="#6b7280" />
+                <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" />
+                <YAxis stroke="hsl(var(--muted-foreground))" />
                 <Tooltip 
                   contentStyle={{ 
-                    backgroundColor: 'white', 
-                    border: '1px solid #d1fae5',
-                    borderRadius: '8px'
+                    backgroundColor: 'hsl(var(--card))', 
+                    border: '1px solid hsl(var(--border))',
+                    borderRadius: '8px',
+                    color: 'hsl(var(--foreground))'
                   }} 
                 />
-                <Line type="monotone" dataKey="control" stroke="#6b7280" strokeWidth={2} name="Control" />
-                <Line type="monotone" dataKey="variant" stroke="#22c55e" strokeWidth={2} name="Variant" />
+                <Line type="monotone" dataKey="control" stroke="hsl(var(--muted-foreground))" strokeWidth={2} name="Control" />
+                <Line type="monotone" dataKey="variant" stroke="hsl(var(--primary))" strokeWidth={2} name="Variant" />
               </LineChart>
             </ResponsiveContainer>
           </CardContent>
         </Card>
 
         {/* Recent Results */}
-        <Card className="border-green-100">
+        <Card className="border-border bg-card">
           <CardHeader>
-            <CardTitle className="text-slate-900">Recent Test Results</CardTitle>
+            <CardTitle className="text-foreground">Recent Test Results</CardTitle>
             <CardDescription>Latest completed A/B tests with outcomes</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
               {completedTests.map((test) => (
-                <div key={test.id} className="flex items-center justify-between p-4 bg-slate-50 rounded-lg">
+                <div key={test.id} className="flex items-center justify-between p-4 bg-accent/50 rounded-lg">
                   <div className="flex-1">
-                    <h3 className="font-medium text-slate-900 mb-1">{test.name}</h3>
-                    <div className="flex items-center gap-3 text-sm text-slate-600">
+                    <h3 className="font-medium text-foreground mb-1">{test.name}</h3>
+                    <div className="flex items-center gap-3 text-sm text-muted-foreground">
                       <span>{test.startDate} - {test.endDate}</span>
-                      <Badge className="bg-green-100 text-green-800">
+                      <Badge className="bg-primary/20 text-primary border-primary/30" variant="outline">
                         Winner: {test.winner}
                       </Badge>
                       <span>Confidence: {test.confidence}</span>
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="text-xl font-bold text-green-600">{test.improvement}</p>
-                    <p className="text-sm text-slate-600">{test.metric} improvement</p>
+                    <p className="text-xl font-bold text-primary">{test.improvement}</p>
+                    <p className="text-sm text-muted-foreground">{test.metric} improvement</p>
                   </div>
                 </div>
               ))}
