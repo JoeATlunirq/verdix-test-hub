@@ -48,7 +48,7 @@ const navigationItems = [
     ],
   },
   {
-    title: "Connected Channels",
+    title: "Channels",
     url: "/channels",
     icon: Video,
   },
@@ -109,8 +109,10 @@ export function AppSidebar() {
                     <SidebarMenuButton 
                       asChild
                       className={cn(
-                        "w-full justify-start text-gray-700 dark:text-gray-300 hover:bg-green-50 dark:hover:bg-green-900/20 hover:text-green-700 dark:hover:text-green-400 font-medium h-12 text-base rounded-lg px-4 py-3",
-                        (location.pathname === item.url || isParentActive(item)) && "verdix-gradient text-white shadow-md hover:opacity-90"
+                        "w-full justify-start text-gray-700 dark:text-gray-300 font-medium h-12 text-base rounded-lg px-4 py-3",
+                        (location.pathname === item.url || isParentActive(item)) 
+                          ? "verdix-gradient text-white shadow-md" 
+                          : "hover:bg-green-50 dark:hover:bg-green-900/20 hover:text-green-700 dark:hover:text-green-400"
                       )}
                     >
                       <Link to={item.url} className="flex items-center gap-4 w-full">
@@ -126,8 +128,10 @@ export function AppSidebar() {
                           <SidebarMenuButton 
                             asChild
                             className={cn(
-                              "w-full justify-start text-gray-600 dark:text-gray-400 hover:bg-green-50 dark:hover:bg-green-900/20 hover:text-green-600 dark:hover:text-green-400 font-medium h-10 text-sm rounded-lg px-3 py-2",
-                              location.pathname === child.url && "bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 font-semibold"
+                              "w-full justify-start text-gray-600 dark:text-gray-400 font-medium h-10 text-sm rounded-lg px-3 py-2",
+                              location.pathname === child.url 
+                                ? "bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 font-semibold"
+                                : "hover:bg-green-50 dark:hover:bg-green-900/20 hover:text-green-600 dark:hover:text-green-400"
                             )}
                           >
                             <Link to={child.url} className="flex items-center gap-3 w-full">

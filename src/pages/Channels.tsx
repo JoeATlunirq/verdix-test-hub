@@ -56,7 +56,7 @@ const Channels = () => {
         {/* Page Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-foreground">Connected Channels</h1>
+            <h1 className="text-3xl font-bold text-foreground">Channels</h1>
             <p className="text-muted-foreground mt-1">Manage your YouTube channels and OAuth connections</p>
           </div>
           <Button className="verdix-gradient text-white hover:opacity-90">
