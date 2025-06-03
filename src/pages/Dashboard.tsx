@@ -7,13 +7,13 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContaine
 import { Link } from "react-router-dom";
 
 const chartData = [
-  { name: 'Mon', videos: 8 },
-  { name: 'Tue', videos: 12 },
-  { name: 'Wed', videos: 15 },
-  { name: 'Thu', videos: 10 },
-  { name: 'Fri', videos: 18 },
-  { name: 'Sat', videos: 14 },
-  { name: 'Sun', videos: 9 },
+  { name: 'Mon', controlVideos: 3, variantVideos: 3 },
+  { name: 'Tue', controlVideos: 5, variantVideos: 5 },
+  { name: 'Wed', controlVideos: 2, variantVideos: 4 },
+  { name: 'Thu', controlVideos: 4, variantVideos: 3 },
+  { name: 'Fri', controlVideos: 6, variantVideos: 6 },
+  { name: 'Sat', controlVideos: 1, variantVideos: 2 },
+  { name: 'Sun', controlVideos: 0, variantVideos: 1 },
 ];
 
 const Dashboard = () => {
@@ -23,7 +23,7 @@ const Dashboard = () => {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold text-foreground font-space">Dashboard</h1>
-            <p className="text-muted-foreground mt-1 font-space">Overview of your YouTube content testing performance</p>
+            <p className="text-muted-foreground mt-1 font-space">Track your YouTube content testing experiments and performance data</p>
           </div>
           <Link to="/tests/new">
             <Button className="verdix-gradient text-white hover:opacity-90 font-space">
@@ -36,41 +36,41 @@ const Dashboard = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <Card className="border-primary/20">
             <CardHeader className="pb-2">
-              <CardDescription className="text-muted-foreground font-space">Active Tests</CardDescription>
+              <CardDescription className="text-muted-foreground font-space">Active Experiments</CardDescription>
               <CardTitle className="text-3xl font-bold text-foreground font-space">3</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-primary font-space">Currently comparing content</p>
+              <p className="text-sm text-primary font-space">Control vs Variant testing</p>
             </CardContent>
           </Card>
 
           <Card className="border-primary/20">
             <CardHeader className="pb-2">
-              <CardDescription className="text-muted-foreground font-space">Videos in Testing</CardDescription>
-              <CardTitle className="text-3xl font-bold text-foreground font-space">24</CardTitle>
+              <CardDescription className="text-muted-foreground font-space">Videos Being Tested</CardDescription>
+              <CardTitle className="text-3xl font-bold text-foreground font-space">42</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-primary font-space">Across all active tests</p>
+              <p className="text-sm text-primary font-space">21 control + 21 variants</p>
             </CardContent>
           </Card>
 
           <Card className="border-primary/20">
             <CardHeader className="pb-2">
-              <CardDescription className="text-muted-foreground font-space">Connected Channels</CardDescription>
+              <CardDescription className="text-muted-foreground font-space">YouTube Channels</CardDescription>
               <CardTitle className="text-3xl font-bold text-foreground font-space">2</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-muted-foreground font-space">OAuth authorized</p>
+              <p className="text-sm text-muted-foreground font-space">OAuth connected</p>
             </CardContent>
           </Card>
 
           <Card className="border-primary/20">
             <CardHeader className="pb-2">
-              <CardDescription className="text-muted-foreground font-space">Best Performing</CardDescription>
-              <CardTitle className="text-3xl font-bold text-foreground font-space">AI v2</CardTitle>
+              <CardDescription className="text-muted-foreground font-space">Best Test Result</CardDescription>
+              <CardTitle className="text-3xl font-bold text-foreground font-space">+47%</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-primary font-space">+34% CTR improvement</p>
+              <p className="text-sm text-primary font-space">CTR improvement found</p>
             </CardContent>
           </Card>
         </div>
@@ -80,8 +80,8 @@ const Dashboard = () => {
           {/* Chart */}
           <Card className="border-primary/20">
             <CardHeader>
-              <CardTitle className="text-foreground font-space">Weekly Video Testing Activity</CardTitle>
-              <CardDescription className="font-space">Number of videos included in tests this week</CardDescription>
+              <CardTitle className="text-foreground font-space">Weekly Testing Activity</CardTitle>
+              <CardDescription className="font-space">Control vs Variant videos uploaded for testing</CardDescription>
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={300}>
@@ -97,7 +97,8 @@ const Dashboard = () => {
                       color: 'hsl(var(--foreground))'
                     }} 
                   />
-                  <Bar dataKey="videos" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="controlVideos" fill="hsl(var(--muted-foreground))" radius={[2, 2, 0, 0]} name="Control" />
+                  <Bar dataKey="variantVideos" fill="hsl(var(--primary))" radius={[2, 2, 0, 0]} name="Variant" />
                 </BarChart>
               </ResponsiveContainer>
             </CardContent>
@@ -106,38 +107,38 @@ const Dashboard = () => {
           {/* Recent Tests */}
           <Card className="border-primary/20">
             <CardHeader>
-              <CardTitle className="text-foreground font-space">Recent Content Tests</CardTitle>
-              <CardDescription className="font-space">Latest test results and ongoing comparisons</CardDescription>
+              <CardTitle className="text-foreground font-space">Recent Content Experiments</CardTitle>
+              <CardDescription className="font-space">Latest A/B tests and their YouTube performance</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               {[
                 { 
-                  title: "AI Story Prompts v2 vs Original", 
+                  title: "AI Story Prompts Test", 
                   status: "completed", 
-                  winner: "AI Prompts v2", 
+                  result: "Variant Won", 
                   improvement: "+34% CTR",
-                  videos: "5 vs 5 videos"
+                  videos: "5 control vs 5 variant"
                 },
                 { 
-                  title: "Hook-First vs Classic Format", 
+                  title: "Thumbnail Style Experiment", 
                   status: "running", 
-                  winner: null, 
-                  improvement: null,
-                  videos: "4 vs 4 videos"
+                  result: null, 
+                  improvement: "Day 3 of 7",
+                  videos: "6 control vs 6 variant"
                 },
                 { 
-                  title: "Thumbnail Style A vs B", 
+                  title: "Hook Length Comparison", 
                   status: "completed", 
-                  winner: "Style A", 
-                  improvement: "+12% CTR",
-                  videos: "6 vs 6 videos"
+                  result: "Control Won", 
+                  improvement: "+12% Retention",
+                  videos: "4 control vs 4 variant"
                 },
                 { 
-                  title: "Question vs Statement Titles", 
+                  title: "Font Style Test", 
                   status: "scheduled", 
-                  winner: null, 
-                  improvement: null,
-                  videos: "3 vs 3 videos"
+                  result: null, 
+                  improvement: "Starts tomorrow",
+                  videos: "3 control vs 3 variant"
                 },
               ].map((test, index) => (
                 <div key={index} className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
@@ -155,15 +156,17 @@ const Dashboard = () => {
                         {test.status}
                       </Badge>
                       <span className="text-xs text-muted-foreground font-space">{test.videos}</span>
-                      {test.winner && (
-                        <span className="text-xs text-muted-foreground font-space">Winner: {test.winner}</span>
+                      {test.result && (
+                        <span className="text-xs text-muted-foreground font-space">{test.result}</span>
                       )}
                     </div>
                   </div>
                   {test.improvement && (
                     <div className="text-right">
                       <p className="text-sm font-semibold text-primary font-space">{test.improvement}</p>
-                      <p className="text-xs text-muted-foreground font-space">improvement</p>
+                      <p className="text-xs text-muted-foreground font-space">
+                        {test.status === 'running' ? 'progress' : test.status === 'scheduled' ? 'timing' : 'improvement'}
+                      </p>
                     </div>
                   )}
                 </div>
