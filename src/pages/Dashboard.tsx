@@ -4,71 +4,73 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { Link } from "react-router-dom";
 
 const chartData = [
-  { name: 'Mon', tests: 4 },
-  { name: 'Tue', tests: 7 },
-  { name: 'Wed', tests: 12 },
-  { name: 'Thu', tests: 8 },
-  { name: 'Fri', tests: 15 },
-  { name: 'Sat', tests: 10 },
-  { name: 'Sun', tests: 6 },
+  { name: 'Mon', videos: 8 },
+  { name: 'Tue', videos: 12 },
+  { name: 'Wed', videos: 15 },
+  { name: 'Thu', videos: 10 },
+  { name: 'Fri', videos: 18 },
+  { name: 'Sat', videos: 14 },
+  { name: 'Sun', videos: 9 },
 ];
 
 const Dashboard = () => {
   return (
     <DashboardLayout>
       <div className="space-y-6">
-        {/* Page Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-foreground">Dashboard</h1>
-            <p className="text-muted-foreground mt-1">Overview of your YouTube A/B testing performance</p>
+            <h1 className="text-3xl font-bold text-foreground font-space">Dashboard</h1>
+            <p className="text-muted-foreground mt-1 font-space">Overview of your YouTube content testing performance</p>
           </div>
-          <Button className="verdix-gradient text-white hover:opacity-90">
-            + New Test
-          </Button>
+          <Link to="/tests/new">
+            <Button className="verdix-gradient text-white hover:opacity-90 font-space">
+              + New Content Test
+            </Button>
+          </Link>
         </div>
 
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <Card className="border-primary/20">
             <CardHeader className="pb-2">
-              <CardDescription className="text-muted-foreground">Active Tests</CardDescription>
-              <CardTitle className="text-3xl font-bold text-foreground">12</CardTitle>
+              <CardDescription className="text-muted-foreground font-space">Active Tests</CardDescription>
+              <CardTitle className="text-3xl font-bold text-foreground font-space">3</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-primary">+2 from last week</p>
+              <p className="text-sm text-primary font-space">Currently comparing content</p>
             </CardContent>
           </Card>
 
           <Card className="border-primary/20">
             <CardHeader className="pb-2">
-              <CardDescription className="text-muted-foreground">Completed Tests</CardDescription>
-              <CardTitle className="text-3xl font-bold text-foreground">47</CardTitle>
+              <CardDescription className="text-muted-foreground font-space">Videos in Testing</CardDescription>
+              <CardTitle className="text-3xl font-bold text-foreground font-space">24</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-primary">+8 from last week</p>
+              <p className="text-sm text-primary font-space">Across all active tests</p>
             </CardContent>
           </Card>
 
           <Card className="border-primary/20">
             <CardHeader className="pb-2">
-              <CardDescription className="text-muted-foreground">Connected Channels</CardDescription>
-              <CardTitle className="text-3xl font-bold text-foreground">3</CardTitle>
+              <CardDescription className="text-muted-foreground font-space">Connected Channels</CardDescription>
+              <CardTitle className="text-3xl font-bold text-foreground font-space">2</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-muted-foreground">All authorized</p>
+              <p className="text-sm text-muted-foreground font-space">OAuth authorized</p>
             </CardContent>
           </Card>
 
           <Card className="border-primary/20">
             <CardHeader className="pb-2">
-              <CardDescription className="text-muted-foreground">Avg. CTR Improvement</CardDescription>
-              <CardTitle className="text-3xl font-bold text-foreground">+24%</CardTitle>
+              <CardDescription className="text-muted-foreground font-space">Best Performing</CardDescription>
+              <CardTitle className="text-3xl font-bold text-foreground font-space">AI v2</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-primary">↗ Above average</p>
+              <p className="text-sm text-primary font-space">+34% CTR improvement</p>
             </CardContent>
           </Card>
         </div>
@@ -78,8 +80,8 @@ const Dashboard = () => {
           {/* Chart */}
           <Card className="border-primary/20">
             <CardHeader>
-              <CardTitle className="text-foreground">Weekly Test Activity</CardTitle>
-              <CardDescription>Number of tests completed this week</CardDescription>
+              <CardTitle className="text-foreground font-space">Weekly Video Testing Activity</CardTitle>
+              <CardDescription className="font-space">Number of videos included in tests this week</CardDescription>
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={300}>
@@ -95,7 +97,7 @@ const Dashboard = () => {
                       color: 'hsl(var(--foreground))'
                     }} 
                   />
-                  <Bar dataKey="tests" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="videos" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </CardContent>
@@ -104,19 +106,43 @@ const Dashboard = () => {
           {/* Recent Tests */}
           <Card className="border-primary/20">
             <CardHeader>
-              <CardTitle className="text-foreground">Recent Tests</CardTitle>
-              <CardDescription>Latest A/B test results</CardDescription>
+              <CardTitle className="text-foreground font-space">Recent Content Tests</CardTitle>
+              <CardDescription className="font-space">Latest test results and ongoing comparisons</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               {[
-                { title: "Thumbnail A vs B - Gaming Video", status: "completed", winner: "Variant B", improvement: "+32%" },
-                { title: "Title Test - Tech Review", status: "running", winner: null, improvement: null },
-                { title: "Upload Time Test", status: "completed", winner: "Control", improvement: "+18%" },
-                { title: "Hook Length Test", status: "scheduled", winner: null, improvement: null },
+                { 
+                  title: "AI Story Prompts v2 vs Original", 
+                  status: "completed", 
+                  winner: "AI Prompts v2", 
+                  improvement: "+34% CTR",
+                  videos: "5 vs 5 videos"
+                },
+                { 
+                  title: "Hook-First vs Classic Format", 
+                  status: "running", 
+                  winner: null, 
+                  improvement: null,
+                  videos: "4 vs 4 videos"
+                },
+                { 
+                  title: "Thumbnail Style A vs B", 
+                  status: "completed", 
+                  winner: "Style A", 
+                  improvement: "+12% CTR",
+                  videos: "6 vs 6 videos"
+                },
+                { 
+                  title: "Question vs Statement Titles", 
+                  status: "scheduled", 
+                  winner: null, 
+                  improvement: null,
+                  videos: "3 vs 3 videos"
+                },
               ].map((test, index) => (
                 <div key={index} className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
                   <div className="flex-1">
-                    <p className="font-medium text-foreground text-sm">{test.title}</p>
+                    <p className="font-medium text-foreground text-sm font-space">{test.title}</p>
                     <div className="flex items-center gap-2 mt-1">
                       <Badge 
                         variant={test.status === 'completed' ? 'default' : test.status === 'running' ? 'secondary' : 'outline'}
@@ -128,15 +154,16 @@ const Dashboard = () => {
                       >
                         {test.status}
                       </Badge>
+                      <span className="text-xs text-muted-foreground font-space">{test.videos}</span>
                       {test.winner && (
-                        <span className="text-xs text-muted-foreground">Winner: {test.winner}</span>
+                        <span className="text-xs text-muted-foreground font-space">Winner: {test.winner}</span>
                       )}
                     </div>
                   </div>
                   {test.improvement && (
                     <div className="text-right">
-                      <p className="text-sm font-semibold text-primary">{test.improvement}</p>
-                      <p className="text-xs text-muted-foreground">CTR improvement</p>
+                      <p className="text-sm font-semibold text-primary font-space">{test.improvement}</p>
+                      <p className="text-xs text-muted-foreground font-space">improvement</p>
                     </div>
                   )}
                 </div>

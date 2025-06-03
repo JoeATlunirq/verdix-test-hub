@@ -6,227 +6,273 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Calendar } from "@/components/ui/calendar";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { CalendarIcon, Lightbulb, BarChart3 } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Plus, X, Upload, BarChart3 } from "lucide-react";
 import { useState } from "react";
-import { format } from "date-fns";
-import { cn } from "@/lib/utils";
 
 const NewTest = () => {
-  const [startDate, setStartDate] = useState<Date>();
-  const [endDate, setEndDate] = useState<Date>();
+  const [controlVideos, setControlVideos] = useState<string[]>([""]);
+  const [variantVideos, setVariantVideos] = useState<string[]>([""]);
+
+  const addControlVideo = () => {
+    setControlVideos([...controlVideos, ""]);
+  };
+
+  const removeControlVideo = (index: number) => {
+    setControlVideos(controlVideos.filter((_, i) => i !== index));
+  };
+
+  const addVariantVideo = () => {
+    setVariantVideos([...variantVideos, ""]);
+  };
+
+  const removeVariantVideo = (index: number) => {
+    setVariantVideos(variantVideos.filter((_, i) => i !== index));
+  };
+
+  const updateControlVideo = (index: number, value: string) => {
+    const updated = [...controlVideos];
+    updated[index] = value;
+    setControlVideos(updated);
+  };
+
+  const updateVariantVideo = (index: number, value: string) => {
+    const updated = [...variantVideos];
+    updated[index] = value;
+    setVariantVideos(updated);
+  };
 
   return (
     <DashboardLayout>
       <div className="space-y-6">
-        {/* Page Header */}
         <div>
-          <h1 className="text-3xl font-bold text-slate-900">Create New Test</h1>
-          <p className="text-slate-600 mt-1">Set up a new A/B test for your YouTube content</p>
+          <h1 className="text-3xl font-bold text-foreground font-space">Create Content Test</h1>
+          <p className="text-muted-foreground mt-1 font-space">Set up a new test to compare different content approaches using real YouTube data</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Test Setup Form */}
           <div className="lg:col-span-2 space-y-6">
-            <Card className="border-green-100">
+            {/* Test Setup */}
+            <Card className="border-primary/20">
               <CardHeader>
-                <CardTitle className="text-slate-900">Test Configuration</CardTitle>
-                <CardDescription>Define your A/B test parameters</CardDescription>
+                <CardTitle className="text-foreground font-space">Test Configuration</CardTitle>
+                <CardDescription className="font-space">Define what you're testing and why</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="testName">Test Name</Label>
-                  <Input id="testName" placeholder="e.g., Thumbnail A vs B - Gaming Video" />
+                  <Label htmlFor="testName" className="font-space">Test Name</Label>
+                  <Input id="testName" placeholder="e.g., AI Story Prompt v2 vs Current Approach" className="font-space" />
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="testType">Test Type</Label>
-                    <Select>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select test type" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="thumbnail">Thumbnail</SelectItem>
-                        <SelectItem value="title">Title</SelectItem>
-                        <SelectItem value="description">Description</SelectItem>
-                        <SelectItem value="upload-time">Upload Time</SelectItem>
-                        <SelectItem value="content">Content/Hook</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="channel">Channel</Label>
+                    <Label htmlFor="channel" className="font-space">Channel</Label>
                     <Select>
                       <SelectTrigger>
                         <SelectValue placeholder="Select channel" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="gamehub">GameHub Pro</SelectItem>
-                        <SelectItem value="techinsight">TechInsight</SelectItem>
-                        <SelectItem value="dailyvlogs">Daily Vlogs</SelectItem>
+                        <SelectItem value="reddit-stories">Reddit Stories Channel</SelectItem>
+                        <SelectItem value="gaming-hub">Gaming Hub</SelectItem>
+                        <SelectItem value="tech-reviews">Tech Reviews</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="testDuration" className="font-space">Test Duration</Label>
+                    <Select>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select duration" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="7">7 days</SelectItem>
+                        <SelectItem value="14">14 days</SelectItem>
+                        <SelectItem value="30">30 days</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="hypothesis">Test Hypothesis</Label>
+                  <Label htmlFor="hypothesis" className="font-space">What are you testing?</Label>
                   <Textarea 
                     id="hypothesis" 
-                    placeholder="Describe what you're testing and why you think variant B will perform better..."
-                    className="min-h-[100px]"
+                    placeholder="e.g., Testing new AI prompt that creates more engaging story hooks vs my current approach. Expecting higher retention and engagement..."
+                    className="min-h-[100px] font-space"
                   />
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label>Start Date</Label>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <Button
-                          variant="outline"
-                          className={cn(
-                            "w-full justify-start text-left font-normal",
-                            !startDate && "text-muted-foreground"
-                          )}
-                        >
-                          <CalendarIcon className="mr-2 h-4 w-4" />
-                          {startDate ? format(startDate, "PPP") : "Pick start date"}
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0" align="start">
-                        <Calendar
-                          mode="single"
-                          selected={startDate}
-                          onSelect={setStartDate}
-                          initialFocus
-                          className="pointer-events-auto"
-                        />
-                      </PopoverContent>
-                    </Popover>
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label>End Date</Label>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <Button
-                          variant="outline"
-                          className={cn(
-                            "w-full justify-start text-left font-normal",
-                            !endDate && "text-muted-foreground"
-                          )}
-                        >
-                          <CalendarIcon className="mr-2 h-4 w-4" />
-                          {endDate ? format(endDate, "PPP") : "Pick end date"}
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0" align="start">
-                        <Calendar
-                          mode="single"
-                          selected={endDate}
-                          onSelect={setEndDate}
-                          initialFocus
-                          className="pointer-events-auto"
-                        />
-                      </PopoverContent>
-                    </Popover>
-                  </div>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="border-green-100">
+            {/* Control Group */}
+            <Card className="border-primary/20">
               <CardHeader>
-                <CardTitle className="text-slate-900">Test Variants</CardTitle>
-                <CardDescription>Define your control and test variants</CardDescription>
+                <CardTitle className="text-foreground font-space flex items-center gap-2">
+                  <BarChart3 className="w-5 h-5" />
+                  Control Group (Current Approach)
+                </CardTitle>
+                <CardDescription className="font-space">
+                  Upload URLs of videos that represent your current approach. These will be your baseline for comparison.
+                </CardDescription>
               </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-4">
-                    <h3 className="font-semibold text-slate-900">Control (A)</h3>
-                    <div className="space-y-2">
-                      <Label htmlFor="controlTitle">Title/Description</Label>
-                      <Input id="controlTitle" placeholder="Current title or description" />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="controlVideo">Video URL</Label>
-                      <Input id="controlVideo" placeholder="https://youtube.com/watch?v=..." />
-                    </div>
+              <CardContent className="space-y-4">
+                {controlVideos.map((video, index) => (
+                  <div key={index} className="flex gap-2">
+                    <Input 
+                      placeholder="https://youtube.com/watch?v=..."
+                      value={video}
+                      onChange={(e) => updateControlVideo(index, e.target.value)}
+                      className="flex-1 font-space"
+                    />
+                    {controlVideos.length > 1 && (
+                      <Button 
+                        variant="outline" 
+                        size="icon"
+                        onClick={() => removeControlVideo(index)}
+                        className="border-destructive/20 text-destructive hover:bg-destructive/10"
+                      >
+                        <X className="w-4 h-4" />
+                      </Button>
+                    )}
                   </div>
+                ))}
+                <Button 
+                  variant="outline" 
+                  onClick={addControlVideo}
+                  className="w-full border-primary/20 text-primary hover:bg-primary/10 font-space"
+                >
+                  <Plus className="w-4 h-4 mr-2" />
+                  Add Control Video
+                </Button>
+              </CardContent>
+            </Card>
 
-                  <div className="space-y-4">
-                    <h3 className="font-semibold text-slate-900">Variant (B)</h3>
-                    <div className="space-y-2">
-                      <Label htmlFor="variantTitle">Title/Description</Label>
-                      <Input id="variantTitle" placeholder="New title or description to test" />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="variantVideo">Video URL</Label>
-                      <Input id="variantVideo" placeholder="https://youtube.com/watch?v=..." />
-                    </div>
+            {/* Variant Group */}
+            <Card className="border-primary/20">
+              <CardHeader>
+                <CardTitle className="text-foreground font-space flex items-center gap-2">
+                  <Upload className="w-5 h-5" />
+                  Variant Group (New Approach)
+                </CardTitle>
+                <CardDescription className="font-space">
+                  Upload URLs of videos using your new approach. These will be compared against the control group.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {variantVideos.map((video, index) => (
+                  <div key={index} className="flex gap-2">
+                    <Input 
+                      placeholder="https://youtube.com/watch?v=..."
+                      value={video}
+                      onChange={(e) => updateVariantVideo(index, e.target.value)}
+                      className="flex-1 font-space"
+                    />
+                    {variantVideos.length > 1 && (
+                      <Button 
+                        variant="outline" 
+                        size="icon"
+                        onClick={() => removeVariantVideo(index)}
+                        className="border-destructive/20 text-destructive hover:bg-destructive/10"
+                      >
+                        <X className="w-4 h-4" />
+                      </Button>
+                    )}
                   </div>
-                </div>
+                ))}
+                <Button 
+                  variant="outline" 
+                  onClick={addVariantVideo}
+                  className="w-full border-primary/20 text-primary hover:bg-primary/10 font-space"
+                >
+                  <Plus className="w-4 h-4 mr-2" />
+                  Add Variant Video
+                </Button>
               </CardContent>
             </Card>
 
             <div className="flex gap-4">
-              <Button className="verdix-gradient text-white hover:opacity-90 flex-1">
-                Create Test
+              <Button className="verdix-gradient text-white hover:opacity-90 flex-1 font-space">
+                Start Content Test
               </Button>
-              <Button variant="outline" className="border-green-200 text-green-700 hover:bg-green-50">
+              <Button variant="outline" className="border-primary/20 text-primary hover:bg-primary/10 font-space">
                 Save as Draft
               </Button>
             </div>
           </div>
 
-          {/* Sidebar Tips */}
+          {/* Sidebar */}
           <div className="space-y-6">
-            <Card className="border-green-100">
+            <Card className="border-primary/20">
               <CardHeader>
-                <CardTitle className="text-slate-900 flex items-center gap-2">
-                  <Lightbulb className="w-4 h-4" />
-                  Testing Tips
-                </CardTitle>
+                <CardTitle className="text-foreground font-space">Test Overview</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-3 text-sm">
-                <div>
-                  <h4 className="font-medium text-slate-900">Test Duration</h4>
-                  <p className="text-slate-600">Run tests for at least 7 days to get reliable data</p>
+              <CardContent className="space-y-3">
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground font-space">Control Videos:</span>
+                  <Badge className="bg-primary/10 text-primary border-primary/20 font-space">
+                    {controlVideos.filter(v => v.trim()).length}
+                  </Badge>
                 </div>
-                <div>
-                  <h4 className="font-medium text-slate-900">Sample Size</h4>
-                  <p className="text-slate-600">Ensure enough views for statistical significance</p>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground font-space">Variant Videos:</span>
+                  <Badge className="bg-primary/10 text-primary border-primary/20 font-space">
+                    {variantVideos.filter(v => v.trim()).length}
+                  </Badge>
                 </div>
-                <div>
-                  <h4 className="font-medium text-slate-900">Single Variable</h4>
-                  <p className="text-slate-600">Test only one element at a time for clear results</p>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground font-space">Total Videos:</span>
+                  <Badge className="bg-primary/10 text-primary border-primary/20 font-space">
+                    {controlVideos.filter(v => v.trim()).length + variantVideos.filter(v => v.trim()).length}
+                  </Badge>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="border-green-100">
+            <Card className="border-primary/20">
               <CardHeader>
-                <CardTitle className="text-slate-900 flex items-center gap-2">
-                  <BarChart3 className="w-4 h-4" />
-                  Success Metrics
-                </CardTitle>
+                <CardTitle className="text-foreground font-space">Metrics Tracked</CardTitle>
               </CardHeader>
               <CardContent className="space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-slate-600">Click-through Rate</span>
-                  <span className="font-medium">Primary</span>
+                  <span className="text-muted-foreground font-space">Views</span>
+                  <span className="font-medium font-space">Primary</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-slate-600">View Duration</span>
-                  <span className="font-medium">Secondary</span>
+                  <span className="text-muted-foreground font-space">Click-through Rate</span>
+                  <span className="font-medium font-space">Primary</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-slate-600">Engagement Rate</span>
-                  <span className="font-medium">Secondary</span>
+                  <span className="text-muted-foreground font-space">Average View Duration</span>
+                  <span className="font-medium font-space">Primary</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground font-space">Engagement Rate</span>
+                  <span className="font-medium font-space">Secondary</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground font-space">Comments/Likes</span>
+                  <span className="font-medium font-space">Secondary</span>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="border-primary/20">
+              <CardHeader>
+                <CardTitle className="text-foreground font-space">Best Practices</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3 text-sm">
+                <div>
+                  <h4 className="font-medium text-foreground mb-1 font-space">Video Count</h4>
+                  <p className="text-muted-foreground font-space">Use 3-10 videos per group for reliable results</p>
+                </div>
+                <div>
+                  <h4 className="font-medium text-foreground mb-1 font-space">Similar Content</h4>
+                  <p className="text-muted-foreground font-space">Ensure videos are comparable in topic and length</p>
+                </div>
+                <div>
+                  <h4 className="font-medium text-foreground mb-1 font-space">Test Duration</h4>
+                  <p className="text-muted-foreground font-space">Allow 7+ days for meaningful data collection</p>
                 </div>
               </CardContent>
             </Card>
