@@ -10,6 +10,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarHeader,
+  SidebarFooter,
 } from "@/components/ui/sidebar";
 import {
   BarChart3,
@@ -23,8 +24,10 @@ import {
   Users,
   Settings,
   Bell,
-  Sliders
+  Sliders,
+  User
 } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const navigationItems = [
   {
@@ -80,19 +83,19 @@ export function AppSidebar() {
   };
 
   return (
-    <Sidebar className="bg-white border-r border-gray-100">
-      <SidebarHeader className="p-6 border-b border-gray-100">
+    <Sidebar className="bg-white border-r border-gray-100 dark:bg-gray-900 dark:border-gray-800">
+      <SidebarHeader className="p-6 border-b border-gray-100 dark:border-gray-800">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 verdix-gradient rounded-xl flex items-center justify-center shadow-lg p-1">
+          <div className="w-12 h-12 verdix-gradient rounded-xl flex items-center justify-center shadow-lg">
             <img 
               src="/lovable-uploads/adca2f61-27ff-4ff5-bfa9-934915da9ddc.png" 
               alt="Verdix Logo" 
-              className="w-full h-full object-contain"
+              className="w-full h-full object-cover rounded-xl"
             />
           </div>
           <div className="flex flex-col">
             <span className="text-2xl font-bold verdix-text-gradient font-orbitron tracking-wider">VERDIX</span>
-            <span className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full font-medium tracking-wide">PRO</span>
+            <span className="text-xs bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 px-2 py-0.5 rounded-full font-medium tracking-wide">PRO</span>
           </div>
         </div>
       </SidebarHeader>
@@ -106,7 +109,7 @@ export function AppSidebar() {
                     <SidebarMenuButton 
                       asChild
                       className={cn(
-                        "w-full justify-start text-gray-700 hover:bg-green-50 hover:text-green-700 font-medium",
+                        "w-full justify-start text-gray-700 dark:text-gray-300 hover:bg-green-50 dark:hover:bg-green-900/20 hover:text-green-700 dark:hover:text-green-400 font-medium",
                         (location.pathname === item.url || isParentActive(item)) && "verdix-gradient text-white shadow-md"
                       )}
                     >
@@ -117,15 +120,15 @@ export function AppSidebar() {
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   {item.children && shouldShowChildren(item) && (
-                    <div className="ml-6 mt-2 space-y-1 border-l-2 border-green-100 pl-4">
+                    <div className="ml-6 mt-2 space-y-1 border-l-2 border-green-100 dark:border-green-800 pl-4">
                       {item.children.map((child) => (
                         <SidebarMenuItem key={child.title}>
                           <SidebarMenuButton 
                             asChild
                             size="sm"
                             className={cn(
-                              "w-full justify-start text-gray-600 hover:bg-green-50 hover:text-green-600 font-medium",
-                              location.pathname === child.url && "bg-green-100 text-green-700 font-semibold"
+                              "w-full justify-start text-gray-600 dark:text-gray-400 hover:bg-green-50 dark:hover:bg-green-900/20 hover:text-green-600 dark:hover:text-green-400 font-medium",
+                              location.pathname === child.url && "bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 font-semibold"
                             )}
                           >
                             <Link to={child.url} className="flex items-center gap-3">
@@ -143,6 +146,18 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+      <SidebarFooter className="p-4 border-t border-gray-100 dark:border-gray-800">
+        <Link to="/profile" className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+          <Avatar className="w-8 h-8">
+            <AvatarImage src="https://images.unsplash.com/photo-1535268647677-300dbf3d78d1?w=32&h=32&fit=crop&crop=face" />
+            <AvatarFallback>JD</AvatarFallback>
+          </Avatar>
+          <div className="flex flex-col">
+            <span className="text-sm font-medium text-gray-900 dark:text-gray-100">John Doe</span>
+            <span className="text-xs text-gray-500 dark:text-gray-400">john@verdix.com</span>
+          </div>
+        </Link>
+      </SidebarFooter>
     </Sidebar>
   );
 }
