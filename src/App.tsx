@@ -13,7 +13,6 @@ import Results from "./pages/tests/Results";
 import Schedule from "./pages/tests/Schedule";
 import Insights from "./pages/tests/Insights";
 import NewTest from "./pages/tests/NewTest";
-import TestDetails from "./pages/tests/TestDetails";
 import Channels from "./pages/Channels";
 import Teams from "./pages/Teams";
 import Settings from "./pages/Settings";
@@ -44,7 +43,6 @@ const App = () => (
             <Route path="/tests/schedule" element={<Schedule />} />
             <Route path="/tests/insights" element={<Insights />} />
             <Route path="/tests/new" element={<NewTest />} />
-            <Route path="/tests/:testId" element={<TestDetails />} />
             <Route path="/channels" element={<Channels />} />
             <Route path="/teams" element={<Teams />} />
             <Route path="/settings" element={<Settings />} />
