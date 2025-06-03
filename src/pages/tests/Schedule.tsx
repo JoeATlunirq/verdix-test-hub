@@ -46,8 +46,8 @@ const Schedule = () => {
         {/* Page Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-slate-900">Test Schedule</h1>
-            <p className="text-slate-600 mt-1">Plan and manage upcoming A/B tests</p>
+            <h1 className="text-3xl font-bold text-foreground">Test Schedule</h1>
+            <p className="text-muted-foreground mt-1">Plan and manage upcoming A/B tests</p>
           </div>
           <Button className="verdix-gradient text-white hover:opacity-90">
             Schedule New Test
@@ -56,9 +56,9 @@ const Schedule = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Calendar */}
-          <Card className="border-green-100 lg:col-span-1">
+          <Card className="border-primary/20 lg:col-span-1">
             <CardHeader>
-              <CardTitle className="text-slate-900">Test Calendar</CardTitle>
+              <CardTitle className="text-foreground">Test Calendar</CardTitle>
               <CardDescription>View scheduled tests by date</CardDescription>
             </CardHeader>
             <CardContent>
@@ -66,24 +66,24 @@ const Schedule = () => {
                 mode="single"
                 selected={date}
                 onSelect={setDate}
-                className="rounded-md border border-green-100"
+                className="rounded-md border border-primary/20"
               />
             </CardContent>
           </Card>
 
           {/* Scheduled Tests */}
-          <Card className="border-green-100 lg:col-span-2">
+          <Card className="border-primary/20 lg:col-span-2">
             <CardHeader>
-              <CardTitle className="text-slate-900">Upcoming Tests</CardTitle>
+              <CardTitle className="text-foreground">Upcoming Tests</CardTitle>
               <CardDescription>Tests scheduled for the next 30 days</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
                 {scheduledTests.map((test) => (
-                  <div key={test.id} className="flex items-center justify-between p-4 bg-slate-50 rounded-lg">
+                  <div key={test.id} className="flex items-center justify-between p-4 bg-muted/50 rounded-lg border border-border">
                     <div className="flex-1">
-                      <h3 className="font-medium text-slate-900 mb-2">{test.name}</h3>
-                      <div className="flex items-center gap-4 text-sm text-slate-600">
+                      <h3 className="font-medium text-foreground mb-2">{test.name}</h3>
+                      <div className="flex items-center gap-4 text-sm text-muted-foreground">
                         <span className="flex items-center gap-1">
                           <CalendarDays className="w-3 h-3" />
                           {test.startDate} - {test.endDate}
@@ -94,17 +94,17 @@ const Schedule = () => {
                         </span>
                         <Badge 
                           variant="outline"
-                          className="bg-orange-50 text-orange-700 border-orange-200"
+                          className="bg-primary/10 text-primary border-primary/20"
                         >
                           {test.type}
                         </Badge>
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Badge className="bg-blue-100 text-blue-800">
+                      <Badge className="bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
                         {test.status}
                       </Badge>
-                      <Button variant="outline" size="sm" className="border-green-200 text-green-700 hover:bg-green-50">
+                      <Button variant="outline" size="sm" className="border-primary/20 text-primary hover:bg-primary/10">
                         <Edit className="w-3 h-3 mr-1" />
                         Edit
                       </Button>
@@ -118,33 +118,33 @@ const Schedule = () => {
 
         {/* Quick Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <Card className="border-green-100">
+          <Card className="border-primary/20">
             <CardHeader className="pb-2">
-              <CardDescription className="text-slate-600">Tests This Week</CardDescription>
-              <CardTitle className="text-3xl font-bold text-slate-900">3</CardTitle>
+              <CardDescription className="text-muted-foreground">Tests This Week</CardDescription>
+              <CardTitle className="text-3xl font-bold text-foreground">3</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-green-600">Starting soon</p>
+              <p className="text-sm text-primary">Starting soon</p>
             </CardContent>
           </Card>
 
-          <Card className="border-green-100">
+          <Card className="border-primary/20">
             <CardHeader className="pb-2">
-              <CardDescription className="text-slate-600">Tests This Month</CardDescription>
-              <CardTitle className="text-3xl font-bold text-slate-900">8</CardTitle>
+              <CardDescription className="text-muted-foreground">Tests This Month</CardDescription>
+              <CardTitle className="text-3xl font-bold text-foreground">8</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-slate-600">Across all channels</p>
+              <p className="text-sm text-muted-foreground">Across all channels</p>
             </CardContent>
           </Card>
 
-          <Card className="border-green-100">
+          <Card className="border-primary/20">
             <CardHeader className="pb-2">
-              <CardDescription className="text-slate-600">Pending Approval</CardDescription>
-              <CardTitle className="text-3xl font-bold text-slate-900">2</CardTitle>
+              <CardDescription className="text-muted-foreground">Pending Approval</CardDescription>
+              <CardTitle className="text-3xl font-bold text-foreground">2</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-orange-600">Awaiting review</p>
+              <p className="text-sm text-orange-600 dark:text-orange-400">Awaiting review</p>
             </CardContent>
           </Card>
         </div>
