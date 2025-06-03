@@ -1,4 +1,3 @@
-
 import { DashboardLayout } from "@/components/DashboardLayout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
@@ -156,45 +155,6 @@ const Preferences = () => {
                 <p className="text-sm text-muted-foreground">Receive early access to new features and beta programs</p>
               </div>
               <Switch />
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* API Access */}
-        <Card className="border-primary/20">
-          <CardHeader>
-            <CardTitle className="text-foreground">API Access</CardTitle>
-            <CardDescription>Manage API keys and webhook integrations</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <div className="flex items-center justify-between p-4 bg-muted/50 rounded-lg">
-              <div>
-                <h4 className="font-medium text-foreground">API Key</h4>
-                <p className="text-sm text-muted-foreground">sk-vx_*****************************abc123</p>
-              </div>
-              <div className="flex gap-2">
-                <Button variant="outline" size="sm" className="border-primary/20 text-primary hover:bg-primary/10">
-                  Copy
-                </Button>
-                <Button variant="outline" size="sm" className="border-destructive/20 text-destructive hover:bg-destructive/10">
-                  Regenerate
-                </Button>
-              </div>
-            </div>
-
-            <div className="p-4 bg-primary/10 rounded-lg border border-primary/20">
-              <h4 className="font-medium text-foreground mb-2">Webhook URL</h4>
-              <p className="text-sm text-muted-foreground mb-3">Receive real-time test updates at your endpoint</p>
-              <div className="flex gap-2">
-                <input 
-                  type="url" 
-                  placeholder="https://your-app.com/webhooks/verdix"
-                  className="flex-1 border border-border bg-background text-foreground rounded px-3 py-2 text-sm"
-                />
-                <Button size="sm" className="verdix-gradient text-white hover:opacity-90">
-                  Save
-                </Button>
-              </div>
             </div>
           </CardContent>
         </Card>
