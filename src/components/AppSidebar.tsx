@@ -109,31 +109,30 @@ export function AppSidebar() {
                     <SidebarMenuButton 
                       asChild
                       className={cn(
-                        "w-full justify-start text-gray-700 dark:text-gray-300 hover:bg-green-50 dark:hover:bg-green-900/20 hover:text-green-700 dark:hover:text-green-400 font-medium",
-                        (location.pathname === item.url || isParentActive(item)) && "verdix-gradient text-white shadow-md"
+                        "w-full justify-start text-gray-700 dark:text-gray-300 hover:bg-green-50 dark:hover:bg-green-900/20 hover:text-green-700 dark:hover:text-green-400 font-medium h-12 text-base rounded-lg px-4 py-3",
+                        (location.pathname === item.url || isParentActive(item)) && "verdix-gradient text-white shadow-md hover:opacity-90"
                       )}
                     >
-                      <Link to={item.url} className="flex items-center gap-3">
-                        <item.icon className="w-5 h-5" />
-                        <span className="font-medium">{item.title}</span>
+                      <Link to={item.url} className="flex items-center gap-4 w-full">
+                        <item.icon className="w-6 h-6" />
+                        <span className="font-semibold text-base">{item.title}</span>
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   {item.children && shouldShowChildren(item) && (
-                    <div className="ml-6 mt-2 space-y-1 border-l-2 border-green-100 dark:border-green-800 pl-4">
+                    <div className="ml-8 mt-2 space-y-1 border-l-2 border-green-100 dark:border-green-800 pl-4">
                       {item.children.map((child) => (
                         <SidebarMenuItem key={child.title}>
                           <SidebarMenuButton 
                             asChild
-                            size="sm"
                             className={cn(
-                              "w-full justify-start text-gray-600 dark:text-gray-400 hover:bg-green-50 dark:hover:bg-green-900/20 hover:text-green-600 dark:hover:text-green-400 font-medium",
+                              "w-full justify-start text-gray-600 dark:text-gray-400 hover:bg-green-50 dark:hover:bg-green-900/20 hover:text-green-600 dark:hover:text-green-400 font-medium h-10 text-sm rounded-lg px-3 py-2",
                               location.pathname === child.url && "bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 font-semibold"
                             )}
                           >
-                            <Link to={child.url} className="flex items-center gap-3">
-                              <child.icon className="w-4 h-4" />
-                              <span className="text-sm font-medium">{child.title}</span>
+                            <Link to={child.url} className="flex items-center gap-3 w-full">
+                              <child.icon className="w-5 h-5" />
+                              <span className="font-medium text-sm">{child.title}</span>
                             </Link>
                           </SidebarMenuButton>
                         </SidebarMenuItem>
@@ -147,13 +146,13 @@ export function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter className="p-4 border-t border-gray-100 dark:border-gray-800">
-        <Link to="/profile" className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
-          <Avatar className="w-8 h-8">
+        <Link to="/profile" className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+          <Avatar className="w-10 h-10">
             <AvatarImage src="https://images.unsplash.com/photo-1535268647677-300dbf3d78d1?w=32&h=32&fit=crop&crop=face" />
             <AvatarFallback>JD</AvatarFallback>
           </Avatar>
           <div className="flex flex-col">
-            <span className="text-sm font-medium text-gray-900 dark:text-gray-100">John Doe</span>
+            <span className="text-sm font-semibold text-gray-900 dark:text-gray-100">John Doe</span>
             <span className="text-xs text-gray-500 dark:text-gray-400">john@verdix.com</span>
           </div>
         </Link>
