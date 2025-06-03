@@ -83,15 +83,15 @@ export function AppSidebar() {
     <Sidebar className="bg-white border-r border-gray-100">
       <SidebarHeader className="p-6 border-b border-gray-100">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 verdix-gradient rounded-xl flex items-center justify-center shadow-lg">
+          <div className="w-10 h-10 verdix-gradient rounded-xl flex items-center justify-center shadow-lg p-1">
             <img 
               src="/lovable-uploads/adca2f61-27ff-4ff5-bfa9-934915da9ddc.png" 
               alt="Verdix Logo" 
-              className="w-6 h-6 object-contain"
+              className="w-full h-full object-contain"
             />
           </div>
           <div className="flex flex-col">
-            <span className="text-2xl font-bold verdix-text-gradient tracking-wider">VERDIX</span>
+            <span className="text-2xl font-bold verdix-text-gradient font-orbitron tracking-wider">VERDIX</span>
             <span className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full font-medium tracking-wide">PRO</span>
           </div>
         </div>
