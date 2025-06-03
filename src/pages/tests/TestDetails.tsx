@@ -1,3 +1,4 @@
+
 import { DashboardLayout } from "@/components/DashboardLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -263,39 +264,6 @@ const TestDetails = () => {
           </div>
         </div>
 
-        {/* Tracked Videos */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <Card className="border-primary/20">
-            <CardHeader>
-              <CardTitle className="font-space flex items-center gap-2">
-                <Play className="w-5 h-5" />
-                Control Group ({testData.trackedVideos.control.length} videos)
-              </CardTitle>
-              <p className="text-sm text-muted-foreground font-space">Original approach videos</p>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              {testData.trackedVideos.control.map((video) => (
-                <VideoCard key={video.id} video={video} type="control" />
-              ))}
-            </CardContent>
-          </Card>
-
-          <Card className="border-primary/20">
-            <CardHeader>
-              <CardTitle className="font-space flex items-center gap-2">
-                <Play className="w-5 h-5" />
-                Variant Group ({testData.trackedVideos.variant.length} videos)
-              </CardTitle>
-              <p className="text-sm text-muted-foreground font-space">AI story prompt videos</p>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              {testData.trackedVideos.variant.map((video) => (
-                <VideoCard key={video.id} video={video} type="variant" />
-              ))}
-            </CardContent>
-          </Card>
-        </div>
-
         {/* Results Summary */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Performance Chart */}
@@ -365,6 +333,39 @@ const TestDetails = () => {
               </CardContent>
             </Card>
           </div>
+        </div>
+
+        {/* Tracked Videos */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <Card className="border-primary/20">
+            <CardHeader>
+              <CardTitle className="font-space flex items-center gap-2">
+                <Play className="w-5 h-5" />
+                Control Group ({testData.trackedVideos.control.length} videos)
+              </CardTitle>
+              <p className="text-sm text-muted-foreground font-space">Original approach videos</p>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              {testData.trackedVideos.control.map((video) => (
+                <VideoCard key={video.id} video={video} type="control" />
+              ))}
+            </CardContent>
+          </Card>
+
+          <Card className="border-primary/20">
+            <CardHeader>
+              <CardTitle className="font-space flex items-center gap-2">
+                <Play className="w-5 h-5" />
+                Variant Group ({testData.trackedVideos.variant.length} videos)
+              </CardTitle>
+              <p className="text-sm text-muted-foreground font-space">AI story prompt videos</p>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              {testData.trackedVideos.variant.map((video) => (
+                <VideoCard key={video.id} video={video} type="variant" />
+              ))}
+            </CardContent>
+          </Card>
         </div>
 
         {/* Detailed Metrics */}
