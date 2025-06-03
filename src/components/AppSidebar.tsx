@@ -1,6 +1,6 @@
-
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { useEffect } from "react";
 import {
   Sidebar,
   SidebarContent,
@@ -70,6 +70,12 @@ const navigationItems = [
 
 export function AppSidebar() {
   const location = useLocation();
+
+  // Preload the logo image to prevent flicker
+  useEffect(() => {
+    const img = new Image();
+    img.src = "/lovable-uploads/adca2f61-27ff-4ff5-bfa9-934915da9ddc.png";
+  }, []);
 
   const isParentActive = (item: any) => {
     if (item.children) {
