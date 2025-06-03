@@ -42,11 +42,11 @@ const Channels = () => {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'connected':
-        return <Badge className="bg-green-100 text-green-800">Connected</Badge>;
+        return <Badge className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">Connected</Badge>;
       case 'reauthorize':
-        return <Badge className="bg-yellow-100 text-yellow-800">Reauthorize</Badge>;
+        return <Badge className="bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200">Reauthorize</Badge>;
       default:
-        return <Badge className="bg-gray-100 text-gray-800">Unknown</Badge>;
+        return <Badge className="bg-muted text-muted-foreground">Unknown</Badge>;
     }
   };
 
@@ -56,8 +56,8 @@ const Channels = () => {
         {/* Page Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-slate-900">Connected Channels</h1>
-            <p className="text-slate-600 mt-1">Manage your YouTube channels and OAuth connections</p>
+            <h1 className="text-3xl font-bold text-foreground">Connected Channels</h1>
+            <p className="text-muted-foreground mt-1">Manage your YouTube channels and OAuth connections</p>
           </div>
           <Button className="verdix-gradient text-white hover:opacity-90">
             + Connect Channel
@@ -66,57 +66,57 @@ const Channels = () => {
 
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          <Card className="border-green-100">
+          <Card className="border-primary/20">
             <CardHeader className="pb-2">
-              <CardDescription className="text-slate-600">Total Channels</CardDescription>
-              <CardTitle className="text-3xl font-bold text-slate-900">3</CardTitle>
+              <CardDescription className="text-muted-foreground">Total Channels</CardDescription>
+              <CardTitle className="text-3xl font-bold text-foreground">3</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-green-600">All authorized</p>
+              <p className="text-sm text-primary">All authorized</p>
             </CardContent>
           </Card>
 
-          <Card className="border-green-100">
+          <Card className="border-primary/20">
             <CardHeader className="pb-2">
-              <CardDescription className="text-slate-600">Total Videos</CardDescription>
-              <CardTitle className="text-3xl font-bold text-slate-900">206</CardTitle>
+              <CardDescription className="text-muted-foreground">Total Videos</CardDescription>
+              <CardTitle className="text-3xl font-bold text-foreground">206</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-slate-600">Across all channels</p>
+              <p className="text-sm text-muted-foreground">Across all channels</p>
             </CardContent>
           </Card>
 
-          <Card className="border-green-100">
+          <Card className="border-primary/20">
             <CardHeader className="pb-2">
-              <CardDescription className="text-slate-600">Active Tests</CardDescription>
-              <CardTitle className="text-3xl font-bold text-slate-900">4</CardTitle>
+              <CardDescription className="text-muted-foreground">Active Tests</CardDescription>
+              <CardTitle className="text-3xl font-bold text-foreground">4</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-green-600">Currently running</p>
+              <p className="text-sm text-primary">Currently running</p>
             </CardContent>
           </Card>
 
-          <Card className="border-green-100">
+          <Card className="border-primary/20">
             <CardHeader className="pb-2">
-              <CardDescription className="text-slate-600">Total Subscribers</CardDescription>
-              <CardTitle className="text-3xl font-bold text-slate-900">5.1M</CardTitle>
+              <CardDescription className="text-muted-foreground">Total Subscribers</CardDescription>
+              <CardTitle className="text-3xl font-bold text-foreground">5.1M</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-green-600">Combined reach</p>
+              <p className="text-sm text-primary">Combined reach</p>
             </CardContent>
           </Card>
         </div>
 
         {/* Channels List */}
-        <Card className="border-green-100">
+        <Card className="border-primary/20">
           <CardHeader>
-            <CardTitle className="text-slate-900">Your Channels</CardTitle>
+            <CardTitle className="text-foreground">Your Channels</CardTitle>
             <CardDescription>Manage connected YouTube channels and their test status</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
               {channels.map((channel) => (
-                <div key={channel.id} className="flex items-center justify-between p-4 bg-slate-50 rounded-lg">
+                <div key={channel.id} className="flex items-center justify-between p-4 bg-muted/50 rounded-lg">
                   <div className="flex items-center gap-4">
                     <Avatar className="h-12 w-12">
                       <AvatarImage src={channel.avatar} alt={channel.name} />
@@ -124,8 +124,8 @@ const Channels = () => {
                     </Avatar>
                     
                     <div>
-                      <h3 className="font-semibold text-slate-900">{channel.name}</h3>
-                      <div className="flex items-center gap-4 text-sm text-slate-600 mt-1">
+                      <h3 className="font-semibold text-foreground">{channel.name}</h3>
+                      <div className="flex items-center gap-4 text-sm text-muted-foreground mt-1">
                         <span>📹 {channel.videos} videos</span>
                         <span>👥 {channel.subscribers} subscribers</span>
                         <span>🕒 Last sync: {channel.lastSync}</span>
@@ -136,7 +136,7 @@ const Channels = () => {
                   <div className="flex items-center gap-4">
                     <div className="text-right">
                       {getStatusBadge(channel.status)}
-                      <p className="text-sm text-slate-600 mt-1">
+                      <p className="text-sm text-muted-foreground mt-1">
                         {channel.testsRunning} active tests
                       </p>
                     </div>
@@ -145,7 +145,7 @@ const Channels = () => {
                       {channel.status === 'reauthorize' ? (
                         <Button 
                           size="sm" 
-                          className="bg-yellow-500 text-white hover:bg-yellow-600"
+                          className="bg-yellow-500 text-white hover:bg-yellow-600 dark:bg-yellow-600 dark:hover:bg-yellow-700"
                         >
                           Reauthorize
                         </Button>
@@ -153,7 +153,7 @@ const Channels = () => {
                         <Button 
                           variant="outline" 
                           size="sm"
-                          className="border-green-200 text-green-700 hover:bg-green-50"
+                          className="border-primary/20 text-primary hover:bg-primary/10"
                         >
                           Sync Now
                         </Button>
@@ -161,7 +161,7 @@ const Channels = () => {
                       <Button 
                         variant="outline" 
                         size="sm"
-                        className="border-red-200 text-red-700 hover:bg-red-50"
+                        className="border-destructive/20 text-destructive hover:bg-destructive/10"
                       >
                         Remove
                       </Button>
@@ -174,35 +174,35 @@ const Channels = () => {
         </Card>
 
         {/* Connection Instructions */}
-        <Card className="border-green-100">
+        <Card className="border-primary/20">
           <CardHeader>
-            <CardTitle className="text-slate-900">How to Connect a Channel</CardTitle>
+            <CardTitle className="text-foreground">How to Connect a Channel</CardTitle>
             <CardDescription>Steps to link your YouTube channel via OAuth</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
               <div className="text-center">
-                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                  <span className="text-green-600 font-bold">1</span>
+                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <span className="text-primary font-bold">1</span>
                 </div>
-                <h4 className="font-medium text-slate-900 mb-2">Click Connect Channel</h4>
-                <p className="text-slate-600">Start the OAuth authorization process</p>
+                <h4 className="font-medium text-foreground mb-2">Click Connect Channel</h4>
+                <p className="text-muted-foreground">Start the OAuth authorization process</p>
               </div>
               
               <div className="text-center">
-                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                  <span className="text-green-600 font-bold">2</span>
+                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <span className="text-primary font-bold">2</span>
                 </div>
-                <h4 className="font-medium text-slate-900 mb-2">Authorize VERDIX</h4>
-                <p className="text-slate-600">Grant permission to read your channel analytics</p>
+                <h4 className="font-medium text-foreground mb-2">Authorize VERDIX</h4>
+                <p className="text-muted-foreground">Grant permission to read your channel analytics</p>
               </div>
               
               <div className="text-center">
-                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                  <span className="text-green-600 font-bold">3</span>
+                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <span className="text-primary font-bold">3</span>
                 </div>
-                <h4 className="font-medium text-slate-900 mb-2">Start Testing</h4>
-                <p className="text-slate-600">Begin creating A/B tests for your content</p>
+                <h4 className="font-medium text-foreground mb-2">Start Testing</h4>
+                <p className="text-muted-foreground">Begin creating A/B tests for your content</p>
               </div>
             </div>
           </CardContent>
