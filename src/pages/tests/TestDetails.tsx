@@ -4,8 +4,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useParams, useNavigate } from "react-router-dom";
-import { LineChart, Line, AreaChart, Area, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
-import { TrendingUp, TrendingDown, Eye, MousePointer, Clock, Users, Heart, MessageCircle } from "lucide-react";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { TrendingUp, TrendingDown, CheckCircle, AlertCircle, Target, Lightbulb, Copy, Share2 } from "lucide-react";
 
 const TestDetails = () => {
   const { testId } = useParams();
@@ -20,76 +20,61 @@ const TestDetails = () => {
     channel: "GameHub Pro",
     startDate: "2024-01-10",
     endDate: "2024-01-17",
-    duration: "7 days",
-    totalVideos: 10,
-    controlVideos: 5,
-    variantVideos: 5,
     winner: "Variant",
     confidence: "95%",
     improvement: "+34%",
-    primaryMetric: "CTR",
-    description: "Testing AI-generated story prompts versus traditional storytelling approach for gaming content",
     
-    // Performance over time data
-    timeSeriesData: [
-      { day: 'Day 1', controlViews: 5200, variantViews: 6800, controlCTR: 5.8, variantCTR: 7.2 },
-      { day: 'Day 2', controlViews: 8400, variantViews: 11200, controlCTR: 6.0, variantCTR: 7.5 },
-      { day: 'Day 3', controlViews: 12800, variantViews: 16900, controlCTR: 6.1, variantCTR: 7.8 },
-      { day: 'Day 4', controlViews: 18200, variantViews: 24500, controlCTR: 6.2, variantCTR: 8.0 },
-      { day: 'Day 5', controlViews: 23800, variantViews: 32400, controlCTR: 6.1, variantCTR: 8.1 },
-      { day: 'Day 6', controlViews: 28500, variantViews: 39200, controlCTR: 6.2, variantCTR: 8.2 },
-      { day: 'Day 7', controlViews: 32000, variantViews: 45000, controlCTR: 6.1, variantCTR: 8.2 }
-    ],
+    // Key insights for creators
+    insights: {
+      primaryWin: "34% higher CTR with AI-generated story hooks",
+      audienceResponse: "Younger audience (18-24) responded 67% better to variant",
+      bestPerformingElement: "Opening question format in AI prompts",
+      revenueImpact: "+$2,340 estimated monthly revenue increase",
+      watchTimeGain: "Average +67 seconds per viewer"
+    },
 
-    // Audience distribution
-    audienceData: [
-      { name: '13-17', control: 15, variant: 22 },
-      { name: '18-24', control: 35, variant: 42 },
-      { name: '25-34', control: 30, variant: 25 },
-      { name: '35-44', control: 15, variant: 8 },
-      { name: '45+', control: 5, variant: 3 }
-    ],
-
-    // Traffic sources
-    trafficSources: [
-      { name: 'Search', value: 45, color: '#8884d8' },
-      { name: 'Browse Features', value: 30, color: '#82ca9d' },
-      { name: 'Suggested Videos', value: 15, color: '#ffc658' },
-      { name: 'External', value: 7, color: '#ff7300' },
-      { name: 'Direct', value: 3, color: '#0088fe' }
-    ],
-
-    // Detailed metrics
-    detailedMetrics: {
-      control: {
-        totalViews: 32000,
-        uniqueViewers: 28500,
-        avgViewDuration: 245,
-        avgRetention: 68,
-        likes: 1200,
-        dislikes: 89,
-        comments: 156,
-        shares: 78,
-        subscribersGained: 45,
-        ctr: 6.1,
-        impressions: 524000,
-        avgCPV: 0.08
+    // Actionable recommendations
+    recommendations: [
+      {
+        type: "immediate",
+        title: "Apply AI prompts to all gaming content",
+        description: "Roll out the winning AI story format to your entire gaming series",
+        impact: "High",
+        effort: "Low"
       },
-      variant: {
-        totalViews: 45000,
-        uniqueViewers: 39200,
-        avgViewDuration: 312,
-        avgRetention: 73,
-        likes: 1890,
-        dislikes: 67,
-        comments: 234,
-        shares: 125,
-        subscribersGained: 89,
-        ctr: 8.2,
-        impressions: 549000,
-        avgCPV: 0.06
+      {
+        type: "content",
+        title: "Test AI prompts on tech reviews",
+        description: "Your tech review channel could see similar improvements",
+        impact: "Medium", 
+        effort: "Low"
+      },
+      {
+        type: "optimization",
+        title: "A/B test different AI prompt styles",
+        description: "Try question vs statement formats in your AI prompts",
+        impact: "Medium",
+        effort: "Medium"
       }
-    }
+    ],
+
+    // Performance timeline showing the winning moment
+    performanceData: [
+      { day: 'Day 1', controlCTR: 5.8, variantCTR: 7.2, gap: 1.4 },
+      { day: 'Day 2', controlCTR: 6.0, variantCTR: 7.5, gap: 1.5 },
+      { day: 'Day 3', controlCTR: 6.1, variantCTR: 7.8, gap: 1.7 },
+      { day: 'Day 4', controlCTR: 6.2, variantCTR: 8.0, gap: 1.8 },
+      { day: 'Day 5', controlCTR: 6.1, variantCTR: 8.1, gap: 2.0 },
+      { day: 'Day 6', controlCTR: 6.2, variantCTR: 8.2, gap: 2.0 },
+      { day: 'Day 7', controlCTR: 6.1, variantCTR: 8.2, gap: 2.1 }
+    ],
+
+    // What specifically won
+    winningElements: [
+      { element: "Hook Opening", improvement: "+45%", description: "AI-generated questions perform better than statements" },
+      { element: "Pacing", improvement: "+23%", description: "Faster story progression keeps viewers engaged" },
+      { element: "Cliffhangers", improvement: "+18%", description: "AI creates more compelling mid-story tension" }
+    ]
   };
 
   const getStatusColor = (status: string) => {
@@ -105,16 +90,23 @@ const TestDetails = () => {
     }
   };
 
-  const formatDuration = (seconds: number) => {
-    const minutes = Math.floor(seconds / 60);
-    const remainingSeconds = seconds % 60;
-    return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+  const getImpactColor = (impact: string) => {
+    switch (impact) {
+      case 'High':
+        return 'text-green-600 bg-green-50 border-green-200';
+      case 'Medium':
+        return 'text-orange-600 bg-orange-50 border-orange-200';
+      case 'Low':
+        return 'text-blue-600 bg-blue-50 border-blue-200';
+      default:
+        return 'text-muted-foreground bg-muted border-border';
+    }
   };
 
   return (
     <DashboardLayout>
       <div className="space-y-6">
-        {/* Header */}
+        {/* Header with key result */}
         <div className="flex items-center gap-4">
           <Button 
             variant="outline" 
@@ -130,389 +122,171 @@ const TestDetails = () => {
                 {testData.status}
               </Badge>
             </div>
-            <p className="text-muted-foreground font-space">{testData.description}</p>
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2">
+                <CheckCircle className="w-5 h-5 text-green-500" />
+                <span className="text-lg font-semibold text-green-600 font-space">
+                  {testData.winner} Won by {testData.improvement}
+                </span>
+              </div>
+              <span className="text-muted-foreground font-space">
+                Confidence: {testData.confidence}
+              </span>
+            </div>
           </div>
         </div>
 
-        {/* Test Overview */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <Card className="border-primary/20">
-            <CardContent className="p-4">
-              <div className="flex items-center gap-2 mb-2">
-                <Clock className="w-4 h-4 text-muted-foreground" />
-                <span className="text-sm text-muted-foreground font-space">Duration</span>
-              </div>
-              <p className="text-xl font-bold font-space">{testData.duration}</p>
-            </CardContent>
-          </Card>
-
-          <Card className="border-primary/20">
-            <CardContent className="p-4">
-              <div className="flex items-center gap-2 mb-2">
-                <Eye className="w-4 h-4 text-muted-foreground" />
-                <span className="text-sm text-muted-foreground font-space">Total Videos</span>
-              </div>
-              <p className="text-xl font-bold font-space">{testData.totalVideos}</p>
-            </CardContent>
-          </Card>
-
-          <Card className="border-primary/20">
-            <CardContent className="p-4">
-              <div className="flex items-center gap-2 mb-2">
-                <TrendingUp className="w-4 h-4 text-green-500" />
-                <span className="text-sm text-muted-foreground font-space">Winner</span>
-              </div>
-              <p className="text-xl font-bold text-primary font-space">{testData.winner}</p>
-            </CardContent>
-          </Card>
-
-          <Card className="border-primary/20">
-            <CardContent className="p-4">
-              <div className="flex items-center gap-2 mb-2">
-                <MousePointer className="w-4 h-4 text-muted-foreground" />
-                <span className="text-sm text-muted-foreground font-space">Improvement</span>
-              </div>
-              <p className="text-xl font-bold text-green-500 font-space">{testData.improvement}</p>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Performance Over Time */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <Card className="border-primary/20">
-            <CardHeader>
-              <CardTitle className="font-space">Views Over Time</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ResponsiveContainer width="100%" height={300}>
-                <AreaChart data={testData.timeSeriesData}>
-                  <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
-                  <XAxis dataKey="day" className="fill-muted-foreground" />
-                  <YAxis className="fill-muted-foreground" />
-                  <Tooltip 
-                    contentStyle={{ 
-                      backgroundColor: 'hsl(var(--card))', 
-                      border: '1px solid hsl(var(--border))',
-                      borderRadius: '8px'
-                    }} 
-                  />
-                  <Legend />
-                  <Area 
-                    type="monotone" 
-                    dataKey="controlViews" 
-                    stackId="1"
-                    stroke="hsl(var(--muted-foreground))" 
-                    fill="hsl(var(--muted))"
-                    name="Control Views"
-                  />
-                  <Area 
-                    type="monotone" 
-                    dataKey="variantViews" 
-                    stackId="1"
-                    stroke="hsl(var(--primary))" 
-                    fill="hsl(var(--primary))"
-                    name="Variant Views"
-                  />
-                </AreaChart>
-              </ResponsiveContainer>
-            </CardContent>
-          </Card>
-
-          <Card className="border-primary/20">
-            <CardHeader>
-              <CardTitle className="font-space">CTR Performance</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ResponsiveContainer width="100%" height={300}>
-                <LineChart data={testData.timeSeriesData}>
-                  <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
-                  <XAxis dataKey="day" className="fill-muted-foreground" />
-                  <YAxis className="fill-muted-foreground" />
-                  <Tooltip 
-                    contentStyle={{ 
-                      backgroundColor: 'hsl(var(--card))', 
-                      border: '1px solid hsl(var(--border))',
-                      borderRadius: '8px'
-                    }} 
-                  />
-                  <Legend />
-                  <Line 
-                    type="monotone" 
-                    dataKey="controlCTR" 
-                    stroke="hsl(var(--muted-foreground))" 
-                    strokeWidth={3}
-                    name="Control CTR"
-                  />
-                  <Line 
-                    type="monotone" 
-                    dataKey="variantCTR" 
-                    stroke="hsl(var(--primary))" 
-                    strokeWidth={3}
-                    name="Variant CTR"
-                  />
-                </LineChart>
-              </ResponsiveContainer>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Audience & Traffic Analysis */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <Card className="border-primary/20">
-            <CardHeader>
-              <CardTitle className="font-space">Audience Demographics</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ResponsiveContainer width="100%" height={300}>
-                <AreaChart data={testData.audienceData}>
-                  <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
-                  <XAxis dataKey="name" className="fill-muted-foreground" />
-                  <YAxis className="fill-muted-foreground" />
-                  <Tooltip 
-                    contentStyle={{ 
-                      backgroundColor: 'hsl(var(--card))', 
-                      border: '1px solid hsl(var(--border))',
-                      borderRadius: '8px'
-                    }} 
-                  />
-                  <Legend />
-                  <Area 
-                    type="monotone" 
-                    dataKey="control" 
-                    stackId="1"
-                    stroke="hsl(var(--muted-foreground))" 
-                    fill="hsl(var(--muted))"
-                    name="Control"
-                  />
-                  <Area 
-                    type="monotone" 
-                    dataKey="variant" 
-                    stackId="2"
-                    stroke="hsl(var(--primary))" 
-                    fill="hsl(var(--primary))"
-                    name="Variant"
-                  />
-                </AreaChart>
-              </ResponsiveContainer>
-            </CardContent>
-          </Card>
-
-          <Card className="border-primary/20">
-            <CardHeader>
-              <CardTitle className="font-space">Traffic Sources</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ResponsiveContainer width="100%" height={300}>
-                <PieChart>
-                  <Pie
-                    data={testData.trafficSources}
-                    cx="50%"
-                    cy="50%"
-                    labelLine={false}
-                    label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
-                    outerRadius={80}
-                    fill="#8884d8"
-                    dataKey="value"
-                  >
-                    {testData.trafficSources.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.color} />
-                    ))}
-                  </Pie>
-                  <Tooltip />
-                </PieChart>
-              </ResponsiveContainer>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Detailed Metrics Comparison */}
-        <Card className="border-primary/20">
+        {/* Key Insights */}
+        <Card className="border-primary/20 bg-primary/5">
           <CardHeader>
-            <CardTitle className="font-space">Detailed Performance Metrics</CardTitle>
+            <CardTitle className="flex items-center gap-2 font-space">
+              <Lightbulb className="w-5 h-5 text-primary" />
+              Key Insights
+            </CardTitle>
           </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-              {/* Views & Engagement */}
-              <div className="space-y-4">
-                <h4 className="font-semibold text-foreground font-space">Views & Reach</h4>
-                
-                <div className="p-3 bg-muted/30 rounded-lg">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Eye className="w-4 h-4 text-muted-foreground" />
-                    <span className="text-sm font-space">Total Views</span>
-                  </div>
-                  <div className="space-y-1">
-                    <div className="flex justify-between">
-                      <span className="text-sm font-space">Control:</span>
-                      <span className="font-bold font-space">{testData.detailedMetrics.control.totalViews.toLocaleString()}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-sm font-space">Variant:</span>
-                      <span className="font-bold text-primary font-space">{testData.detailedMetrics.variant.totalViews.toLocaleString()}</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="p-3 bg-muted/30 rounded-lg">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Users className="w-4 h-4 text-muted-foreground" />
-                    <span className="text-sm font-space">Unique Viewers</span>
-                  </div>
-                  <div className="space-y-1">
-                    <div className="flex justify-between">
-                      <span className="text-sm font-space">Control:</span>
-                      <span className="font-bold font-space">{testData.detailedMetrics.control.uniqueViewers.toLocaleString()}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-sm font-space">Variant:</span>
-                      <span className="font-bold text-primary font-space">{testData.detailedMetrics.variant.uniqueViewers.toLocaleString()}</span>
-                    </div>
-                  </div>
-                </div>
+          <CardContent className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="p-4 bg-white dark:bg-card rounded-lg border">
+                <h4 className="font-semibold text-foreground font-space mb-2">Revenue Impact</h4>
+                <p className="text-2xl font-bold text-green-600 font-space">{testData.insights.revenueImpact}</p>
+                <p className="text-sm text-muted-foreground font-space">Based on current viewership</p>
               </div>
-
-              {/* Watch Time */}
-              <div className="space-y-4">
-                <h4 className="font-semibold text-foreground font-space">Watch Time</h4>
-                
-                <div className="p-3 bg-muted/30 rounded-lg">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Clock className="w-4 h-4 text-muted-foreground" />
-                    <span className="text-sm font-space">Avg Duration</span>
-                  </div>
-                  <div className="space-y-1">
-                    <div className="flex justify-between">
-                      <span className="text-sm font-space">Control:</span>
-                      <span className="font-bold font-space">{formatDuration(testData.detailedMetrics.control.avgViewDuration)}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-sm font-space">Variant:</span>
-                      <span className="font-bold text-primary font-space">{formatDuration(testData.detailedMetrics.variant.avgViewDuration)}</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="p-3 bg-muted/30 rounded-lg">
-                  <div className="flex items-center gap-2 mb-2">
-                    <TrendingUp className="w-4 h-4 text-muted-foreground" />
-                    <span className="text-sm font-space">Retention Rate</span>
-                  </div>
-                  <div className="space-y-1">
-                    <div className="flex justify-between">
-                      <span className="text-sm font-space">Control:</span>
-                      <span className="font-bold font-space">{testData.detailedMetrics.control.avgRetention}%</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-sm font-space">Variant:</span>
-                      <span className="font-bold text-primary font-space">{testData.detailedMetrics.variant.avgRetention}%</span>
-                    </div>
-                  </div>
-                </div>
+              <div className="p-4 bg-white dark:bg-card rounded-lg border">
+                <h4 className="font-semibold text-foreground font-space mb-2">Audience Response</h4>
+                <p className="text-sm font-space">{testData.insights.audienceResponse}</p>
+                <p className="text-lg font-bold text-primary font-space mt-1">{testData.insights.watchTimeGain}</p>
               </div>
-
-              {/* Engagement */}
-              <div className="space-y-4">
-                <h4 className="font-semibold text-foreground font-space">Social Engagement</h4>
-                
-                <div className="p-3 bg-muted/30 rounded-lg">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Heart className="w-4 h-4 text-muted-foreground" />
-                    <span className="text-sm font-space">Likes</span>
-                  </div>
-                  <div className="space-y-1">
-                    <div className="flex justify-between">
-                      <span className="text-sm font-space">Control:</span>
-                      <span className="font-bold font-space">{testData.detailedMetrics.control.likes.toLocaleString()}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-sm font-space">Variant:</span>
-                      <span className="font-bold text-primary font-space">{testData.detailedMetrics.variant.likes.toLocaleString()}</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="p-3 bg-muted/30 rounded-lg">
-                  <div className="flex items-center gap-2 mb-2">
-                    <MessageCircle className="w-4 h-4 text-muted-foreground" />
-                    <span className="text-sm font-space">Comments</span>
-                  </div>
-                  <div className="space-y-1">
-                    <div className="flex justify-between">
-                      <span className="text-sm font-space">Control:</span>
-                      <span className="font-bold font-space">{testData.detailedMetrics.control.comments}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-sm font-space">Variant:</span>
-                      <span className="font-bold text-primary font-space">{testData.detailedMetrics.variant.comments}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Performance */}
-              <div className="space-y-4">
-                <h4 className="font-semibold text-foreground font-space">Performance</h4>
-                
-                <div className="p-3 bg-muted/30 rounded-lg">
-                  <div className="flex items-center gap-2 mb-2">
-                    <MousePointer className="w-4 h-4 text-muted-foreground" />
-                    <span className="text-sm font-space">CTR</span>
-                  </div>
-                  <div className="space-y-1">
-                    <div className="flex justify-between">
-                      <span className="text-sm font-space">Control:</span>
-                      <span className="font-bold font-space">{testData.detailedMetrics.control.ctr}%</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-sm font-space">Variant:</span>
-                      <span className="font-bold text-primary font-space">{testData.detailedMetrics.variant.ctr}%</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="p-3 bg-muted/30 rounded-lg">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Users className="w-4 h-4 text-muted-foreground" />
-                    <span className="text-sm font-space">New Subscribers</span>
-                  </div>
-                  <div className="space-y-1">
-                    <div className="flex justify-between">
-                      <span className="text-sm font-space">Control:</span>
-                      <span className="font-bold font-space">{testData.detailedMetrics.control.subscribersGained}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-sm font-space">Variant:</span>
-                      <span className="font-bold text-primary font-space">{testData.detailedMetrics.variant.subscribersGained}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            </div>
+            <div className="p-4 bg-white dark:bg-card rounded-lg border">
+              <h4 className="font-semibold text-foreground font-space mb-2">What Won</h4>
+              <p className="font-space">{testData.insights.bestPerformingElement}</p>
+              <p className="text-sm text-muted-foreground font-space mt-1">{testData.insights.primaryWin}</p>
             </div>
           </CardContent>
         </Card>
 
-        {/* Final Results Summary */}
-        <Card className="border-primary/20 bg-primary/5">
+        {/* Performance Timeline */}
+        <Card className="border-primary/20">
+          <CardHeader>
+            <CardTitle className="font-space">Performance Over Time</CardTitle>
+            <p className="text-sm text-muted-foreground font-space">
+              See when the winning variant started pulling ahead
+            </p>
+          </CardHeader>
+          <CardContent>
+            <ResponsiveContainer width="100%" height={300}>
+              <LineChart data={testData.performanceData}>
+                <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
+                <XAxis dataKey="day" className="fill-muted-foreground" />
+                <YAxis className="fill-muted-foreground" />
+                <Tooltip 
+                  contentStyle={{ 
+                    backgroundColor: 'hsl(var(--card))', 
+                    border: '1px solid hsl(var(--border))',
+                    borderRadius: '8px'
+                  }} 
+                />
+                <Line 
+                  type="monotone" 
+                  dataKey="controlCTR" 
+                  stroke="hsl(var(--muted-foreground))" 
+                  strokeWidth={2}
+                  name="Original CTR"
+                />
+                <Line 
+                  type="monotone" 
+                  dataKey="variantCTR" 
+                  stroke="hsl(var(--primary))" 
+                  strokeWidth={3}
+                  name="AI Prompts CTR"
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          </CardContent>
+        </Card>
+
+        {/* What Specifically Won */}
+        <Card className="border-primary/20">
+          <CardHeader>
+            <CardTitle className="font-space">Winning Elements Breakdown</CardTitle>
+            <p className="text-sm text-muted-foreground font-space">
+              Understand exactly what made the difference
+            </p>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              {testData.winningElements.map((element, index) => (
+                <div key={index} className="flex items-center justify-between p-4 border rounded-lg">
+                  <div className="flex-1">
+                    <h4 className="font-semibold font-space">{element.element}</h4>
+                    <p className="text-sm text-muted-foreground font-space">{element.description}</p>
+                  </div>
+                  <div className="text-right">
+                    <span className="text-lg font-bold text-green-600 font-space">{element.improvement}</span>
+                    <p className="text-xs text-muted-foreground font-space">improvement</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Action Plan */}
+        <Card className="border-primary/20">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 font-space">
+              <Target className="w-5 h-5 text-primary" />
+              Your Action Plan
+            </CardTitle>
+            <p className="text-sm text-muted-foreground font-space">
+              Here's what to do next to maximize your results
+            </p>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              {testData.recommendations.map((rec, index) => (
+                <div key={index} className="flex items-start gap-4 p-4 border rounded-lg">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-2">
+                      <h4 className="font-semibold font-space">{rec.title}</h4>
+                      <Badge className={getImpactColor(rec.impact)}>
+                        {rec.impact} Impact
+                      </Badge>
+                    </div>
+                    <p className="text-sm text-muted-foreground font-space mb-3">{rec.description}</p>
+                    <div className="flex gap-2">
+                      <Button size="sm" className="verdix-gradient text-white font-space">
+                        <Copy className="w-4 h-4 mr-2" />
+                        Apply Now
+                      </Button>
+                      <Button size="sm" variant="outline" className="font-space">
+                        <Share2 className="w-4 h-4 mr-2" />
+                        Share with Team
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Next Steps */}
+        <Card className="border-primary/20 bg-muted/30">
           <CardContent className="p-6">
             <div className="text-center">
-              <h3 className="text-2xl font-bold text-foreground font-space mb-4">Test Conclusion</h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div>
-                  <p className="text-sm text-muted-foreground font-space mb-1">Winner</p>
-                  <p className="text-xl font-bold text-primary font-space">{testData.winner}</p>
-                </div>
-                <div>
-                  <p className="text-sm text-muted-foreground font-space mb-1">Improvement</p>
-                  <p className="text-xl font-bold text-green-500 font-space">{testData.improvement}</p>
-                </div>
-                <div>
-                  <p className="text-sm text-muted-foreground font-space mb-1">Confidence</p>
-                  <p className="text-xl font-bold text-primary font-space">{testData.confidence}</p>
-                </div>
-              </div>
-              <p className="text-muted-foreground mt-4 font-space">
-                The variant significantly outperformed the control with higher engagement across all key metrics.
+              <h3 className="text-xl font-bold text-foreground font-space mb-4">Ready to Scale This Win?</h3>
+              <p className="text-muted-foreground mb-6 font-space">
+                Based on these results, applying AI story prompts across your content could increase your monthly revenue by an estimated <span className="font-bold text-primary">{testData.insights.revenueImpact}</span>
               </p>
+              <div className="flex gap-4 justify-center">
+                <Button className="verdix-gradient text-white font-space">
+                  Create Similar Test
+                </Button>
+                <Button variant="outline" className="font-space">
+                  Export Results
+                </Button>
+              </div>
             </div>
           </CardContent>
         </Card>
