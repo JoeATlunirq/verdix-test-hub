@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useParams, useNavigate } from "react-router-dom";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
-import { TrendingUp, TrendingDown, Eye, MousePointer, Clock, Users, ArrowRight, Target, Lightbulb } from "lucide-react";
+import { TrendingUp, TrendingDown, Eye, MousePointer, Clock, Users, ArrowRight, Target, Lightbulb, Play, ExternalLink } from "lucide-react";
 
 const TestDetails = () => {
   const { testId } = useParams();
@@ -55,6 +55,94 @@ const TestDetails = () => {
       { day: 'Day 6', control: 28500, variant: 39200 },
       { day: 'Day 7', control: 32000, variant: 45000 }
     ],
+
+    // Tracked videos
+    trackedVideos: {
+      control: [
+        {
+          id: "ctrl-1",
+          title: "Epic Gaming Moments That Changed Everything",
+          url: "https://youtube.com/watch?v=abc123",
+          views: 8500,
+          uploadDate: "2024-01-10",
+          thumbnail: "/placeholder.svg"
+        },
+        {
+          id: "ctrl-2", 
+          title: "Top 10 Gaming Fails You Won't Believe",
+          url: "https://youtube.com/watch?v=def456",
+          views: 6200,
+          uploadDate: "2024-01-11",
+          thumbnail: "/placeholder.svg"
+        },
+        {
+          id: "ctrl-3",
+          title: "How Pros Really Play This Game",
+          url: "https://youtube.com/watch?v=ghi789",
+          views: 9800,
+          uploadDate: "2024-01-12",
+          thumbnail: "/placeholder.svg"
+        },
+        {
+          id: "ctrl-4",
+          title: "Gaming Setup Tour - My Battle Station",
+          url: "https://youtube.com/watch?v=jkl012",
+          views: 4200,
+          uploadDate: "2024-01-13",
+          thumbnail: "/placeholder.svg"
+        },
+        {
+          id: "ctrl-5",
+          title: "Reacting to Viewer Gaming Clips",
+          url: "https://youtube.com/watch?v=mno345",
+          views: 3300,
+          uploadDate: "2024-01-14",
+          thumbnail: "/placeholder.svg"
+        }
+      ],
+      variant: [
+        {
+          id: "var-1",
+          title: "What if your favorite game character was real?",
+          url: "https://youtube.com/watch?v=pqr678",
+          views: 12400,
+          uploadDate: "2024-01-10",
+          thumbnail: "/placeholder.svg"
+        },
+        {
+          id: "var-2",
+          title: "The untold story behind gaming's biggest mystery",
+          url: "https://youtube.com/watch?v=stu901",
+          views: 9800,
+          uploadDate: "2024-01-11",
+          thumbnail: "/placeholder.svg"
+        },
+        {
+          id: "var-3",
+          title: "This gaming secret will blow your mind",
+          url: "https://youtube.com/watch?v=vwx234",
+          views: 11200,
+          uploadDate: "2024-01-12",
+          thumbnail: "/placeholder.svg"
+        },
+        {
+          id: "var-4",
+          title: "Why everyone's talking about this gaming trend",
+          url: "https://youtube.com/watch?v=yza567",
+          views: 7300,
+          uploadDate: "2024-01-13",
+          thumbnail: "/placeholder.svg"
+        },
+        {
+          id: "var-5",
+          title: "The gaming story that started it all",
+          url: "https://youtube.com/watch?v=bcd890",
+          views: 4300,
+          uploadDate: "2024-01-14",
+          thumbnail: "/placeholder.svg"
+        }
+      ]
+    },
 
     // Key insights
     insights: [
@@ -122,6 +210,33 @@ const TestDetails = () => {
     );
   };
 
+  const VideoCard = ({ video, type }: { video: any, type: 'control' | 'variant' }) => (
+    <div className="flex items-center gap-3 p-3 border border-border rounded-lg hover:bg-muted/50 transition-colors">
+      <div className="relative">
+        <img 
+          src={video.thumbnail} 
+          alt={video.title}
+          className="w-16 h-12 object-cover rounded bg-muted"
+        />
+        <div className="absolute inset-0 flex items-center justify-center">
+          <Play className="w-4 h-4 text-white drop-shadow-lg" />
+        </div>
+      </div>
+      <div className="flex-1 min-w-0">
+        <h4 className="font-medium text-sm font-space truncate">{video.title}</h4>
+        <div className="flex items-center gap-3 text-xs text-muted-foreground font-space">
+          <span>{video.views.toLocaleString()} views</span>
+          <span>{video.uploadDate}</span>
+        </div>
+      </div>
+      <Button variant="ghost" size="sm" className="flex-shrink-0" asChild>
+        <a href={video.url} target="_blank" rel="noopener noreferrer">
+          <ExternalLink className="w-4 h-4" />
+        </a>
+      </Button>
+    </div>
+  );
+
   return (
     <DashboardLayout>
       <div className="max-w-7xl mx-auto space-y-8">
@@ -146,6 +261,39 @@ const TestDetails = () => {
             </div>
             <p className="text-muted-foreground font-space">{testData.description}</p>
           </div>
+        </div>
+
+        {/* Tracked Videos */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <Card className="border-primary/20">
+            <CardHeader>
+              <CardTitle className="font-space flex items-center gap-2">
+                <Play className="w-5 h-5" />
+                Control Group ({testData.trackedVideos.control.length} videos)
+              </CardTitle>
+              <p className="text-sm text-muted-foreground font-space">Original approach videos</p>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              {testData.trackedVideos.control.map((video) => (
+                <VideoCard key={video.id} video={video} type="control" />
+              ))}
+            </CardContent>
+          </Card>
+
+          <Card className="border-primary/20">
+            <CardHeader>
+              <CardTitle className="font-space flex items-center gap-2">
+                <Play className="w-5 h-5" />
+                Variant Group ({testData.trackedVideos.variant.length} videos)
+              </CardTitle>
+              <p className="text-sm text-muted-foreground font-space">AI story prompt videos</p>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              {testData.trackedVideos.variant.map((video) => (
+                <VideoCard key={video.id} video={video} type="variant" />
+              ))}
+            </CardContent>
+          </Card>
         </div>
 
         {/* Results Summary */}
