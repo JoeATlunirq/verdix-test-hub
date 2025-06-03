@@ -1,4 +1,3 @@
-
 import { DashboardLayout } from "@/components/DashboardLayout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -7,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { Plus, X, Upload, BarChart3, TrendingUp, Eye, Clock, Heart, MessageCircle, Share2, ThumbsUp } from "lucide-react";
+import { Plus, X, Upload, BarChart3, TrendingUp, Eye, Clock, Heart, MessageCircle, Share2, ThumbsUp, DollarSign } from "lucide-react";
 import { useState } from "react";
 
 const availableMetrics = [
@@ -19,6 +18,7 @@ const availableMetrics = [
   { id: 'likes', name: 'Likes', icon: ThumbsUp, description: 'Total number of likes' },
   { id: 'shares', name: 'Shares', icon: Share2, description: 'Times video was shared' },
   { id: 'subscribers', name: 'Subscriber Growth', icon: TrendingUp, description: 'New subscribers from video' },
+  { id: 'revenue', name: 'Revenue', icon: DollarSign, description: 'Total revenue generated from video' },
 ];
 
 const NewTest = () => {
